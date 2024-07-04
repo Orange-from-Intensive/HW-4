@@ -88,8 +88,7 @@ public class JdbcUserRepository implements UserRepository {
             String surname = resultSet.getString("surname");
             LocalDate birthDate = resultSet.getDate("age").toLocalDate();
             Long userId = resultSet.getLong("id");
-            User user = new User(userId, name, surname, birthDate);
-            return user;
+            return new User(userId, name, surname, birthDate);
         } catch (SQLException e) {
             log.error("Record not retrieved from db. SQL exception[{}]", id, e);
         }

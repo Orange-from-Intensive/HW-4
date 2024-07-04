@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Slf4j
 @WebServlet(urlPatterns = "/user/edit", initParams = {
@@ -40,9 +38,7 @@ public class EditUser extends HttpServlet {
         } catch (NumberFormatException e) {
             log.warn("Malformed id: {}", idString);
             req.getRequestDispatcher("/noSuchId.jsp").forward(req, resp);
-            return;
         }
-
     }
 
     @Override
@@ -51,7 +47,7 @@ public class EditUser extends HttpServlet {
         String surname = req.getParameter("surname");
         String birthDate = req.getParameter("birthDate");
         String idString = req.getParameter("id");
-        Long id = 0L;
+        long id;
         try {
             id = Long.parseLong(idString);
         } catch (NumberFormatException e) {

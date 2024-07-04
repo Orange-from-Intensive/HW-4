@@ -41,7 +41,7 @@ public class InitializationContextListener implements ServletContextListener {
             final Connection connection = (Connection) sce.getServletContext().getAttribute("connection");
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Initialization error.", e);
         }
     }
 }
