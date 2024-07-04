@@ -24,7 +24,14 @@
             <td><c:out value="${user.name}" /></td>
             <td><c:out value="${user.surname}" /></td>
             <td><c:out value="${user.birthDate}" /></td>
-            <td><a href="${pageContext.request.contextPath}/user/edit?id=${user.id}">Edit</a></td>
+            <td>
+                <a href="${pageContext.request.contextPath}/user/edit?id=${user.id}"><button>Edit</button></a>
+            </td>
+            <td>
+                <form action="${pageContext.request.contextPath}/user/remove?id=${user.id}" method="post">
+                    <button>Delete</button>
+                </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

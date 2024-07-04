@@ -36,7 +36,7 @@ public class AddUser extends HttpServlet {
         final LocalDate birthDate = LocalDate.parse(request.getParameter("dateOfBirth"));
         try {
             userService.addUser(name, surname, birthDate);
-            response.sendRedirect("/users");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
         } catch (Exception e) {
             log.error("Error message.", e);
         }

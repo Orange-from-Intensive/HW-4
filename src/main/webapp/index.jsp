@@ -9,7 +9,5 @@
 <br/>
 <a href="${pageContext.request.contextPath}/users">List users</a>
 <a href="users/add">Add user</a>
-<a href="hello-servlet">Hello Servlet</a>
-<a href="hello-servlet">Hello Servlet</a>
 </body>
 </html>
