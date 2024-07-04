@@ -30,15 +30,16 @@ public class AddUser extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         final String name = request.getParameter("name");
         final String surname = request.getParameter("surname");
         final LocalDate birthDate = LocalDate.parse(request.getParameter("dateOfBirth"));
         try {
             userService.addUser(name, surname, birthDate);
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            resp.sendRedirect(request.getContextPath() + "/index.jsp");
         } catch (Exception e) {
-            log.error("Error message.", e);
+            log.warn("Error adding user.", e);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding user.");
         }
     }
 }

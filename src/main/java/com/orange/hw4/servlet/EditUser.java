@@ -47,15 +47,20 @@ public class EditUser extends HttpServlet {
         String surname = req.getParameter("surname");
         String birthDate = req.getParameter("birthDate");
         String idString = req.getParameter("id");
-        long id;
         try {
-            id = Long.parseLong(idString);
-        } catch (NumberFormatException e) {
-            log.warn("Malformed id: {}", idString);
-            req.getRequestDispatcher("/noSuchId.jsp").forward(req, resp);
-            return;
+            long id;
+            try {
+                id = Long.parseLong(idString);
+            } catch (NumberFormatException e) {
+                log.warn("Malformed id: {}", idString);
+                req.getRequestDispatcher("/noSuchId.jsp").forward(req, resp);
+                return;
+            }
+            userService.updateUser(name,surname, LocalDate.parse(birthDate),id);
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
+        } catch (Exception e) {
+            log.warn("Error editing user.", e);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error editing user.");
         }
-        userService.updateUser(name,surname, LocalDate.parse(birthDate),id);
-        resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
 }
