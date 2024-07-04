@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+   http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <context-param>
+        <param-name>db_url</param-name>
+        <param-value>jdbc:postgresql://192.168.160.129:5432/customers</param-value>
+    </context-param>
+    <context-param>
+        <param-name>db_user</param-name>
+        <param-value>orange</param-value>
+    </context-param>
+    <context-param>
+        <param-name>db_password</param-name>
+        <param-value>orange</param-value>
+    </context-param>
+</web-app>
