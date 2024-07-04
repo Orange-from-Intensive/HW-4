@@ -23,12 +23,12 @@ public class RemoveUser extends HttpServlet {
     }
 
     @Override
-    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idString = req.getParameter("id");
         try {
             Long id = Long.parseLong(idString);
             userService.deleteUser(id);
-            resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
         } catch (Exception e) {
             log.warn("Error removing user.", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error removing user.");

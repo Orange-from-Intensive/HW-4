@@ -56,6 +56,6 @@ public class EditUser extends HttpServlet {
             return;
         }
         userService.updateUser(name,surname, LocalDate.parse(birthDate),id);
-        resp.sendRedirect(req.getContextPath() + "/users");
+        resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
 }
