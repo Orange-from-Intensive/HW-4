@@ -26,8 +26,13 @@ public class ListUsers  extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> userList = userService.getAllUsers();
-        req.setAttribute("userList", userList);
-        req.getRequestDispatcher("/userlist.jsp").forward(req, resp);
+        try {
+            List<User> userList = userService.getAllUsers();
+            req.setAttribute("userList", userList);
+            req.getRequestDispatcher("/userlist.jsp").forward(req, resp);
+        } catch (Exception e) {
+            log.warn("Error during receiving list of users.", e);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error during receiving list of users.");
+        }
     }
 }
