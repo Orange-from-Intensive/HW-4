@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d32591b1-1f1f-41c4-a262-4fbf484caecd" name="Changes" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/HelloServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/HelloServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/listener/InitializationContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/listener/InitializationContextListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/repository/JdbcUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/repository/JdbcUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/EditUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/EditUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +86,9 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -105,10 +106,12 @@
     "Repository.Attach.Annotations": "true",
     "Repository.Attach.JavaDocs": "true",
     "Repository.Attach.Sources": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.25.executor": "Run",
     "Tomcat Server.Tomcat 9.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "mike",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -121,6 +124,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -245,6 +249,7 @@
       <workItem from="1720011923522" duration="17239000" />
       <workItem from="1720065958791" duration="2333000" />
       <workItem from="1720071056043" duration="4805000" />
+      <workItem from="1720175183341" duration="1769000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
