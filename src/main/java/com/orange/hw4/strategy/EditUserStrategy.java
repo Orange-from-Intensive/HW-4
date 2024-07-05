@@ -26,9 +26,9 @@ public class EditUserStrategy implements UserActionStrategy {
             User user = userService.getUserById(id);
             req.setAttribute("user", user);
             req.getRequestDispatcher("/useredit.jsp").forward(req, resp);
-        } catch (NumberFormatException | ServletException e) {
+        } catch (NumberFormatException e) {
             log.warn("Malformed id: {}", idString);
-            req.getRequestDispatcher("/noSuchId.jsp").forward(req, resp);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Malformed id.");
         }
     }
 }

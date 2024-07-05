@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Add User</h1>
-<form action="${pageContext.request.contextPath}/users/add" method="post">
+<form action="${pageContext.request.contextPath}/user?action=add" method="post">
     <label for="name">Name:</label>
     <input type="text" name="name" required><br><br>
     <label for="surname">Surname:</label>

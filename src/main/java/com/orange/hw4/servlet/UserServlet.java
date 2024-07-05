@@ -33,7 +33,7 @@ public class UserServlet extends HttpServlet {
 
         postStrategies = new HashMap<>();
         postStrategies.put("add", new AddUserStrategy(userService));
-        postStrategies.put("edit", new EditUserStrategy(userService));
+        postStrategies.put("update", new UpdateUserStrategy(userService));
         postStrategies.put("remove", new RemoveUserStrategy(userService));
     }
 
