@@ -89,9 +89,11 @@ public class UserServlet extends HttpServlet {
     private void addUser(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         final String name = request.getParameter("name");
         final String surname = request.getParameter("surname");
-        final LocalDate birthDate = LocalDate.parse(request.getParameter("dateOfBirth"));
+        final String dateOfBirthString = request.getParameter("dateOfBirth");
+        log.debug("Received parameters - name: {}, surname: {}, dateOfBirth: {}", name, surname, dateOfBirthString);
+        final LocalDate dateOfBirth = LocalDate.parse(dateOfBirthString);
         try {
-            userService.addUser(name, surname, birthDate);
+            userService.addUser(name, surname, dateOfBirth);
             resp.sendRedirect(request.getContextPath() + "/index.jsp");
         } catch (Exception e) {
             log.warn("Error adding user.", e);
@@ -102,24 +104,21 @@ public class UserServlet extends HttpServlet {
     private void editUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
-        String birthDate = req.getParameter("birthDate");
+        String birthDateString = req.getParameter("birthDate");
         String idString = req.getParameter("id");
+        log.debug("Received parameters - name: {}, surname: {}, birthDate: {}, id: {}", name, surname, birthDateString, idString);
         try {
-            long id;
-            try {
-                id = Long.parseLong(idString);
-            } catch (NumberFormatException e) {
-                log.warn("Malformed id: {}", idString);
-                req.getRequestDispatcher("/noSuchId.jsp").forward(req, resp);
-                return;
-            }
-            userService.updateUser(name, surname, LocalDate.parse(birthDate), id);
+            long id = Long.parseLong(idString);
+            LocalDate birthDate = LocalDate.parse(birthDateString);
+            userService.updateUser(name, surname, birthDate, id);
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
         } catch (Exception e) {
             log.warn("Error editing user.", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error editing user.");
         }
     }
+
+
 
     private void removeUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idString = req.getParameter("id");

@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d32591b1-1f1f-41c4-a262-4fbf484caecd" name="Changes" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/useradd.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/useradd.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/useredit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/useredit.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +26,8 @@
         <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -249,7 +250,7 @@
       <workItem from="1720011923522" duration="17239000" />
       <workItem from="1720065958791" duration="2333000" />
       <workItem from="1720071056043" duration="4805000" />
-      <workItem from="1720175183341" duration="1769000" />
+      <workItem from="1720175183341" duration="4291000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -279,26 +280,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/AddUser.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/EditUser.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/orange/hw4/repository/JdbcUserRepository.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
