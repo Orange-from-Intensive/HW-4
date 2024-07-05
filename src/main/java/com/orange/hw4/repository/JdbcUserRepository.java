@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class JdbcUserRepository implements UserRepository {
+public class JdbcUserRepository extends UserRepositoryTemplateMethod implements UserRepository {
     private static final String ADD_USER = "INSERT INTO users(name, surname, age) VALUES (?, ?, ?)";
     private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
     private static final String UPDATE_USER = "UPDATE users SET name=?, surname=?, age=? WHERE id=? ";
@@ -25,18 +25,19 @@ public class JdbcUserRepository implements UserRepository {
     public void addUser(String name, String surName, LocalDate birthDate) {
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
 
-            connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+//            connection.setAutoCommit(false);
+//            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            startTransaction(connection);
 
             statement.setString(1, name);
             statement.setString(2, surName);
             statement.setDate(3, Date.valueOf(birthDate));
             statement.execute();
 
-            connection.commit();
-
-            connection.setAutoCommit(true);
-            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
+            endTransaction(connection);
+//            connection.commit();
+//            connection.setAutoCommit(true);
+//            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -50,8 +51,8 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public void updateUser(String name, String surName, LocalDate birthDate, Long id) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_USER)) {
-            connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+
+            startTransaction(connection);
 
             statement.setString(1, name);
             statement.setString(2, surName);
@@ -59,9 +60,8 @@ public class JdbcUserRepository implements UserRepository {
             statement.setLong(4, id);
             statement.execute();
 
-            connection.commit();
-            connection.setAutoCommit(true);
-            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
+            endTransaction(connection);
+
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -74,16 +74,20 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public void deleteUser(Long id) {
+        Savepoint savepoint = null;
+        try{
+            savepoint = connection.setSavepoint();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         try (PreparedStatement statement = connection.prepareStatement(DELETE_USER)) {
-            connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            startTransaction(connection);
 
             statement.setLong(1, id);
             statement.executeUpdate();
 
-            connection.commit();
-            connection.setAutoCommit(true);
-            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
+            endTransaction(connection);
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -91,6 +95,12 @@ public class JdbcUserRepository implements UserRepository {
                 log.error("Error trying to rollback transaction id={}, SQLException ",id, ex);
             }
             log.error("Record not removed from db. Id={}.  SQL exception{}", id, e);
+        }finally {
+            try {
+                connection.releaseSavepoint(savepoint);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -107,8 +117,7 @@ public class JdbcUserRepository implements UserRepository {
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS);
              ResultSet resultSet = statement.executeQuery()) {
 
-            connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            startTransaction(connection);
 
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
@@ -119,9 +128,7 @@ public class JdbcUserRepository implements UserRepository {
                 users.add(user);
             }
 
-            connection.commit();
-            connection.setAutoCommit(true);
-            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
+            endTransaction(connection);
 
         } catch (SQLException e) {
             try {
@@ -134,7 +141,7 @@ public class JdbcUserRepository implements UserRepository {
             try {
                 connection.releaseSavepoint(savepoint);
             } catch (SQLException e) {
-
+                e.printStackTrace();
             }
         }
         return users;
@@ -150,8 +157,7 @@ public class JdbcUserRepository implements UserRepository {
         }
 
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID)) {
-            connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+           startTransaction(connection);
 
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -164,9 +170,7 @@ public class JdbcUserRepository implements UserRepository {
             LocalDate birthDate = resultSet.getDate("age").toLocalDate();
             Long userId = resultSet.getLong("id");
 
-            connection.commit();
-            connection.setAutoCommit(true);
-            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
+            endTransaction(connection);
 
 
             return new User(userId, name, surname, birthDate);
