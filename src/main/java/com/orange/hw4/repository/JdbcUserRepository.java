@@ -25,21 +25,21 @@ public class JdbcUserRepository implements UserRepository {
     public void addUser(String name, String surName, LocalDate birthDate) {
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
 
-            connection.setAutoCommit(false);                                        // manual handling of a transaction
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);  // set isolation level
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
             statement.setString(1, name);
             statement.setString(2, surName);
             statement.setDate(3, Date.valueOf(birthDate));
             statement.execute();
 
-            connection.commit();                                                    // actually committing transaction
+            connection.commit();
 
-            connection.setAutoCommit(true);                                         // not sure if its necessary
-            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);        // setting back to default
+            connection.setAutoCommit(true);
+            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
         } catch (SQLException e) {
             try {
-                connection.rollback();                                              // rollback
+                connection.rollback();
             } catch (SQLException exception) {
                 log.error("Error when trying to rollback, SQLException {}", exception);
             }
@@ -66,7 +66,7 @@ public class JdbcUserRepository implements UserRepository {
             try {
                 connection.rollback();
             } catch (SQLException ex) {
-                log.error("Error when trying to rollback transaction, SQLException {}", ex);
+                log.error("Error trying to rollback transaction id={}, SQLException []",id, ex);
             }
             log.error("Record was not updated. Id[{}].  SQL exception[{}]", id, e);
         }
@@ -88,20 +88,28 @@ public class JdbcUserRepository implements UserRepository {
             try {
                 connection.rollback();
             } catch (SQLException ex) {
-                log.error("Error trying to rollback transaction< SQLException {}", ex);
+                log.error("Error trying to rollback transaction id={}, SQLException ",id, ex);
             }
-            log.error("Record not removed from db. Id[{}].  SQL exception[{}]", id, e);
+            log.error("Record not removed from db. Id={}.  SQL exception{}", id, e);
         }
     }
 
     @Override
     public List<User> getAllUsers() {
+        Savepoint savepoint = null;
+        try {
+            savepoint = connection.setSavepoint();
+        } catch (SQLException e) {
+            log.error("Exception when creating savepoint", e);
+        }
+
         List<User> users = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS)) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS);
+             ResultSet resultSet = statement.executeQuery()) {
+
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
@@ -122,6 +130,12 @@ public class JdbcUserRepository implements UserRepository {
                 log.error("Error trying to rollback transaction, SQLException {}", ex);
             }
             log.error("Records not retrieved from db. SQL exception[{}]", e);
+        }finally {
+            try {
+                connection.releaseSavepoint(savepoint);
+            } catch (SQLException e) {
+
+            }
         }
         return users;
     }
@@ -154,14 +168,23 @@ public class JdbcUserRepository implements UserRepository {
             connection.setAutoCommit(true);
             connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
 
+
             return new User(userId, name, surname, birthDate);
         } catch (SQLException e) {
             try {
                 connection.rollback(savepoint);
             } catch (SQLException ex) {
-                log.error("Error tyeing to rollback transaction, SQLErxception", ex);
+                log.error("Error trying to rollback transaction, SQLException", ex);
             }
             log.error("Record not retrieved from db. SQL exception[{}]", id, e);
+        } finally {
+            try {
+                connection.releaseSavepoint(savepoint);
+            }catch (SQLException ex){
+
+                log.error("Error trying to rollback transaction, SQLException", ex);
+            }
+
         }
         return null;
     }
