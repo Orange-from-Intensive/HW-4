@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d32591b1-1f1f-41c4-a262-4fbf484caecd" name="Changes" comment="templateMethod">
+    <list default="true" id="d32591b1-1f1f-41c4-a262-4fbf484caecd" name="Changes" comment="db credentials">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/listener/InitializationContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/listener/InitializationContextListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/orange/hw4/repository/JdbcUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orange/hw4/repository/JdbcUserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720186421786</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="db credentials">
+      <option name="closed" value="true" />
+      <created>1720188134670</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720188134670</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,16 +317,12 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="rollbacks commits and isolation levels template" />
     <MESSAGE value="templateMethod" />
-    <option name="LAST_COMMIT_MESSAGE" value="templateMethod" />
+    <MESSAGE value="db credentials" />
+    <option name="LAST_COMMIT_MESSAGE" value="db credentials" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/AddUser.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/orange/hw4/servlet/EditUser.java</url>
           <line>35</line>

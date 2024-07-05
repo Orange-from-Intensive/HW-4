@@ -25,8 +25,6 @@ public class JdbcUserRepository extends UserRepositoryTemplateMethod implements 
     public void addUser(String name, String surName, LocalDate birthDate) {
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
 
-//            connection.setAutoCommit(false);
-//            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             startTransaction(connection);
 
             statement.setString(1, name);
@@ -35,9 +33,6 @@ public class JdbcUserRepository extends UserRepositoryTemplateMethod implements 
             statement.execute();
 
             endTransaction(connection);
-//            connection.commit();
-//            connection.setAutoCommit(true);
-//            connection.setTransactionIsolation(Connection.TRANSACTION_NONE);
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -127,7 +122,6 @@ public class JdbcUserRepository extends UserRepositoryTemplateMethod implements 
                 User user = new User(id, name, surname, birthDate);
                 users.add(user);
             }
-
             endTransaction(connection);
 
         } catch (SQLException e) {
@@ -188,7 +182,6 @@ public class JdbcUserRepository extends UserRepositoryTemplateMethod implements 
 
                 log.error("Error trying to rollback transaction, SQLException", ex);
             }
-
         }
         return null;
     }
