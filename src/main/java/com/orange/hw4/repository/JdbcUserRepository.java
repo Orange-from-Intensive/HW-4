@@ -87,7 +87,7 @@ public class JdbcUserRepository extends JdbcUserRepositoryTemplateMethod impleme
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS;
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS);
              ResultSet resultSet = statement.executeQuery()) {
             startTransaction(connection);
 
