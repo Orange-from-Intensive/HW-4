@@ -19,9 +19,9 @@ public class InitializationContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(final ServletContextEvent sce) {
         final String dbDriver = "org.postgresql.Driver";
-        final String username = sce.getServletContext().getInitParameter("db_user");
-        final String password = sce.getServletContext().getInitParameter("db_password");
-        final String dbUrl = sce.getServletContext().getInitParameter("db_url");
+        final String username = sce.getServletContext().getInitParameter("cent");
+        final String password = sce.getServletContext().getInitParameter("cent");
+        final String dbUrl = sce.getServletContext().getInitParameter("jdbc:postgresql://192.168.100.14:5432/customers");
 
         try {
             Class.forName(dbDriver);
