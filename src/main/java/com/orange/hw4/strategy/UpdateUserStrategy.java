@@ -30,6 +30,9 @@ public class UpdateUserStrategy implements UserActionStrategy {
         } catch (NumberFormatException e) {
             log.warn("Malformed id: {}", idString);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Malformed id.");
+        } catch (IllegalArgumentException e) {
+            log.warn("Malformed team type: {}", idString);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Malformed team type.");
         }
     }
 }

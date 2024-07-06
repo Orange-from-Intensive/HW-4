@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String name, String surname, LocalDate birthDate, Long id, String team) throws Exception {
+    public void updateUser(String name, String surname, LocalDate birthDate, Long id, String team) throws IllegalArgumentException {
         userValidator.validateTeam(team);
         userRepository.updateUser(name, surname,birthDate, id, team);
     }

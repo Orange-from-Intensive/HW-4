@@ -8,7 +8,7 @@ public class UserValidator {
         NOTEAM, PINK, ORANGE
     }
 
-    public void validateTeam(String team) throws Exception {
+    public void validateTeam(String team) throws IllegalArgumentException {
         if (Arrays.stream(TeamType.values()).anyMatch(teamType -> team.equalsIgnoreCase(teamType.toString()))) {
             return;
         }
