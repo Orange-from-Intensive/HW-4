@@ -41,7 +41,7 @@
     body>div>div {
         margin: 0 auto;
         width: 80vw;
-        border-style: solid;
+        border-style: solid ;
         border-radius: 6px;
     }
 
@@ -52,6 +52,7 @@
 
     body>div>tr>table>tbody>tr>td {
         padding: 10px;
+        text-align: center;
     }
 
     body>div>div>table>tbody>tr>td:nth-child(6) {
@@ -68,6 +69,7 @@
 <body>
     <h1>Users List</h1>
     <p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
+    <p><a href="${pageContext.request.contextPath}/user?actions=gereratePairs">create pairs</a></p>
 
     
     <div class="tables">
@@ -103,7 +105,7 @@
                                 <c:out value="${user.team}" />
                             </td>
                             <td>
-                               
+                                <c:if test="${user != null}">
                                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                     <button>Edit</button>
                                 </a>
@@ -111,7 +113,7 @@
                                     method="post" style="display:inline;">
                                     <button>Delete</button>
                                 </form>
-
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
