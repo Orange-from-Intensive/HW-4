@@ -15,6 +15,7 @@
         <th>Name</th>
         <th>Surname</th>
         <th>Birthdate</th>
+        <th>Team</th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
             <td><c:out value="${user.name}" /></td>
             <td><c:out value="${user.surname}" /></td>
             <td><c:out value="${user.birthDate}" /></td>
+            <td><c:out value="${user.team}" /></td>
             <td>
                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}"><button>Edit</button></a>
             </td>

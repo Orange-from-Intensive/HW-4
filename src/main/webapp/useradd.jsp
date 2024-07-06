@@ -14,6 +14,8 @@
     <input type="text" name="surname" required><br><br>
     <label for="dateOfBirth">Date of Birth:</label>
     <input type="date" name="dateOfBirth" required><br><br>
+    <label for="team">Team:</label>
+    <input type="text" name="team" required><br><br>
     <input type="submit" value="Add User">
 </form>
 </body>

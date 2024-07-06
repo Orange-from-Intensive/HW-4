@@ -21,10 +21,11 @@ public class UpdateUserStrategy implements UserActionStrategy {
         String surname = req.getParameter("surname");
         String birthDate = req.getParameter("birthDate");
         String idString = req.getParameter("id");
+        String team = req.getParameter("team");
         try {
             long id;
             id = Long.parseLong(idString);
-            userService.updateUser(name, surname, LocalDate.parse(birthDate), id);
+            userService.updateUser(name, surname, LocalDate.parse(birthDate), id, team);
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
         } catch (NumberFormatException e) {
             log.warn("Malformed id: {}", idString);
