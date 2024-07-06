@@ -29,7 +29,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String name, String surname, LocalDate birthDate, Long id, String team) {
+    public void updateUser(String name, String surname, LocalDate birthDate, Long id, String team) throws Exception {
+        userValidator.validateTeam(team);
         userRepository.updateUser(name, surname,birthDate, id, team);
     }
 
