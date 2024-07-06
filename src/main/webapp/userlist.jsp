@@ -71,9 +71,13 @@
 
 <body>
     <h1>Users List</h1>
-    <p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
-    <p><a href="${pageContext.request.contextPath}/user?actions=gereratePairs">create pairs</a></p>
-
+    <form action="${pageContext.request.contextPath}/">
+        <p><button>go back to main page...</button></p>
+    </form>
+    
+    <form action="${pageContext.request.contextPath}/user?actions=gereratePairs">
+        <p><button>create pairs</button></p>
+    </form>
     
     <div class="tables">
         <h2 style="text-shadow: 0px 0px 15px orange;">Orange Team</h2>
