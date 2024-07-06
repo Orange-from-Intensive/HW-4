@@ -35,6 +35,7 @@ public class UserServlet extends HttpServlet {
         postStrategies.put("add", new AddUserStrategy(userService));
         postStrategies.put("update", new UpdateUserStrategy(userService));
         postStrategies.put("remove", new RemoveUserStrategy(userService));
+        postStrategies.put("generatePairs", new GeneratePairsStrategy(userService));
     }
 
     @Override
