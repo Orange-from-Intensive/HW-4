@@ -4,6 +4,7 @@ import com.orange.hw4.repository.JdbcUserRepository;
 import com.orange.hw4.repository.UserRepository;
 import com.orange.hw4.service.UserService;
 import com.orange.hw4.service.UserServiceImpl;
+import com.orange.hw4.validation.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletContextEvent;
@@ -28,7 +29,8 @@ public class InitializationContextListener implements ServletContextListener {
             final Connection connection = DriverManager.getConnection(dbUrl, username, password);
 
             UserRepository userRepository = new JdbcUserRepository(connection);
-            UserService userService = new UserServiceImpl(userRepository);
+            UserValidator userValidator = new UserValidator();
+            UserService userService = new UserServiceImpl(userRepository, userValidator);
             sce.getServletContext().setAttribute("userService", userService);
         } catch (Exception e) {
             log.error("Initialization error.", e);
