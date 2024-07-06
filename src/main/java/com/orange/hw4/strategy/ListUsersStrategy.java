@@ -36,9 +36,9 @@ public class ListUsersStrategy implements UserActionStrategy {
                     .filter(user -> "noteam".equalsIgnoreCase(user.getTeam()))
                     .collect(Collectors.toList());
 
-            req.setAttribute("pinkTeam", userList);
-            req.setAttribute("orangeTeam", userList);
-            req.setAttribute("noTeam", userList);
+            req.setAttribute("orangeTeam", orangeTeam);
+            req.setAttribute("pinkTeam", pinkTeam);
+            req.setAttribute("noTeam", noTeam);
 
             req.setAttribute("userList", userList);
 
