@@ -43,8 +43,7 @@ public class GeneratePairsStrategy implements UserActionStrategy{
 
             request.setAttribute("opponents", opponents);
 
-            //TODO another file.jsp
-            request.getRequestDispatcher("/userlist.jsp").forward(request, resp);
+            request.getRequestDispatcher("/generatePairs.jsp").forward(request, resp);
 
         }catch (Exception e) {
             log.warn("Error during generating pairs.", e);
