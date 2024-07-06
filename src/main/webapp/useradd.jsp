@@ -29,8 +29,8 @@
 <body>
 <h1>Add User</h1>
 <p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
-<div>
 
+<div>
 <form class="form" action="${pageContext.request.contextPath}/user?action=add" method="post">
     <label for="name">Name:</label>
     <input type="text" name="name" required><br><br>

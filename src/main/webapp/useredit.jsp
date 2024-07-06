@@ -15,15 +15,22 @@
         margin: 0;
     text-align: center;
     }
+    body > p{
+        text-align:center;
+    }
     
 
     body > div{
         margin: 0 auto;
         align-content: center;
-        width: auto;
+        width: 20vw;
+        border-style: solid;
+        border-radius: 5px;
     }
+
     .form{
-        margin: 0 auto;
+        width: auto;
+        margin: 10px;
         text-align: center;
     }
     .Error{
@@ -33,6 +40,7 @@
 </style>
 <body>
 <h1>Edit User</h1>
+<p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
 <div>
 <c:if test="${user != null}">
     <form class="form" action="${pageContext.request.contextPath}/user?action=update" method="post">
