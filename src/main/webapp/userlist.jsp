@@ -40,14 +40,14 @@
 
     body>div>div {
         margin: 0 auto;
-        width: 80vw;
+        width: 50vw;
         border-style: solid ;
         border-radius: 6px;
     }
 
     body>div>div>table {
         margin: 0 auto;
-        width: 80vw;
+        width: 50vw;
     }
 
     body>div>tr>table>tbody>tr>td {
@@ -89,23 +89,12 @@
                 <tbody>
                     <c:forEach items="${orangeTeam}" var="user">
                         <tr>
-                            <td>
-                                <c:out value="${user.id}" /> 
-                            </td>
-                            <td>
-                                <c:out value="${user.name}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.surname}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.birthDate}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.team}" />
-                            </td>
-                            <td>
-                                <c:if test="${empty user}">
+                            <td><c:out value="${user.id}"/></td>
+                            <td><c:out value="${user.name}"/></td>
+                            <td><c:out value="${user.surname}"/></td>
+                            <td><c:out value="${user.birthDate}"/></td>
+                            <td><c:out value="${user.team}"/></td>
+                            <td><c:if test="${not empty user}">
                                     <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                         <button>Edit</button>
                                     </a>
