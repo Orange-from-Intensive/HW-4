@@ -27,7 +27,7 @@
     <h1><%= "Choose your destiny...." %></h1>
     
     <form action="${pageContext.request.contextPath}/user?action=list"><p><button>List users</button></p></form>
-    <form action="$user?action=add"><p><button>Add user</button></p></form>
+    <form action="user?action=add"><p><button>Add user</button></p></form>
 
 </body>
 </html>
