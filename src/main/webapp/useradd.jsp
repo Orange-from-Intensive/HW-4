@@ -13,6 +13,9 @@
         margin: 0;
         text-align: center;
     }
+    body.p{
+        text-align:center;
+    }
     body>div {
         margin: 0 auto;
         align-content: center;
@@ -25,6 +28,7 @@
 </style>
 <body>
 <h1>Add User</h1>
+<p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
 <div>
 
 <form class="form" action="${pageContext.request.contextPath}/user?action=add" method="post">
