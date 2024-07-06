@@ -96,7 +96,7 @@
                                 <c:out value="${user.team}" />
                             </td>
                             <td>
-
+                                <c:if test="${user!=null}">
                                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                     <button>Edit</button>
                                 </a>
@@ -104,6 +104,7 @@
                                     method="post" style="display:inline;">
                                     <button>Delete</button>
                                 </form>
+                                </c:if>
                             </td>
                         </div>
                     </c:forEach>

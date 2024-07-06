@@ -18,6 +18,7 @@
 </style>
 <body>
 <h1><%= "Choose your destiny...." %></h1>
+<p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
 <p>
 <a href="${pageContext.request.contextPath}/user?action=list">List users</a>
 <a href="user?action=add">Add user</a>
