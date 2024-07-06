@@ -42,7 +42,7 @@
         margin: 0 auto;
         width: 80vw;
         border-style: solid;
-        border-radius: 10px;
+        border-radius: 6px;
     }
 
     body>div>div>table {
@@ -50,7 +50,7 @@
         width: 80vw;
     }
 
-    body>div>div>table>tbody>tr>td {
+    body>div>tr>table>tbody>tr>td {
         padding: 10px;
     }
 
@@ -86,7 +86,7 @@
                 </thead>
                 <tbody>
                     <c:forEach items="${orangeTeam}" var="user">
-                        <div>
+                        <tr>
                             <td>
                                 <c:out value="${user.id}" /> 
                             </td>
@@ -113,7 +113,7 @@
                                 </form>
 
                             </td>
-                        </div>
+                        </tr>
                     </c:forEach>
                 </tbody>
             </table>
