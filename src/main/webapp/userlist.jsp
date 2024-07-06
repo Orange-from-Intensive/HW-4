@@ -171,12 +171,10 @@
                             <td><c:out value="${user.birthDate}" /></td>
                             <td><c:out value="${user.team}" /></td>
                             <td><c:if test="${not empty user}">
-                                <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
-                                    <button>Edit</button>
+                                <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}"><button>Edit</button>
                                 </a>
                                 <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
-                                    method="post" style="display:inline;">
-                                    <button>Delete</button>
+                                    method="post" style="display:inline;"><button>Delete</button>
                                 </form>
                                 </c:if>
                             </td>
