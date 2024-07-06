@@ -105,14 +105,14 @@
                                 <c:out value="${user.team}" />
                             </td>
                             <td>
-                                <c:if test="${user != null}">
-                                <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
-                                    <button>Edit</button>
-                                </a>
-                                <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
-                                    method="post" style="display:inline;">
-                                    <button>Delete</button>
-                                </form>
+                                <c:if test="${empty user}">
+                                    <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
+                                        <button>Edit</button>
+                                    </a>
+                                    <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
+                                        method="post" style="display:inline;">
+                                        <button>Delete</button>
+                                    </form>
                                 </c:if>
                             </td>
                         </tr>
