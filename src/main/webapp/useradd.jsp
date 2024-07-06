@@ -13,7 +13,7 @@
         margin: 0;
         text-align: center;
     }
-    body.p{
+   body > p{
         text-align:center;
     }
     body>div {
@@ -39,7 +39,11 @@
     <label for="dateOfBirth">Date of Birth:</label>
     <input type="date" name="dateOfBirth" required><br><br>
     <label for="team">Team:</label>
-    <input type="text" name="team" required><br><br>
+    <select name="team" required><br><br>
+        <option value="noteam">no team</option>
+        <option value="orange">orange</option>
+        <option value="pink">pink</option>
+    </select>
     <input type="submit" value="Add User">
 </form>
 </div>
