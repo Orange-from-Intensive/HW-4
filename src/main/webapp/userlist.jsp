@@ -127,29 +127,20 @@
                 <tbody>
                     <c:forEach items="${pinkTeam}" var="user">
                         <tr>
-                            <td>
-                                <c:out value="${user.id}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.name}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.surname}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.birthDate}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.team}" />
-                            </td>
-                            <td>
+                            <td><c:out value="${user.id}"/></td>
+                            <td><c:out value="${user.name}"/></td>
+                            <td><c:out value="${user.surname}"/></td>
+                            <td><c:out value="${user.birthDate}"/></td>
+                            <td><c:out value="${user.team}"/></td>
+                            <td><c:if test="${not empty user}">
                                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                     <button>Edit</button>
                                 </a>
-                                <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
-                                    method="post" style="display:inline;">
-                                    <button>Delete</button>
-                                </form>
+                                    <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
+                                        method="post" style="display:inline;">
+                                        <button>Delete</button>
+                                    </form>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
@@ -174,22 +165,12 @@
                 <tbody>
                     <c:forEach items="${noTeam}" var="user">
                         <tr>
-                            <td>
-                                <c:out value="${user.id}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.name}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.surname}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.birthDate}" />
-                            </td>
-                            <td>
-                                <c:out value="${user.team}" />
-                            </td>
-                            <td>
+                            <td><c:out value="${user.id}" /></td>
+                            <td><c:out value="${user.name}" /></td>
+                            <td><c:out value="${user.surname}" /></td>
+                            <td><c:out value="${user.birthDate}" /></td>
+                            <td><c:out value="${user.team}" /></td>
+                            <td><c:if test="${not empty user}">
                                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                     <button>Edit</button>
                                 </a>
@@ -197,6 +178,7 @@
                                     method="post" style="display:inline;">
                                     <button>Delete</button>
                                 </form>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
