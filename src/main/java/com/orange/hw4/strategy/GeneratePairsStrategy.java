@@ -25,7 +25,7 @@ public class GeneratePairsStrategy implements UserActionStrategy{
         try {
 
             List<User> users = userService.getAllUsers();
-            Map<String, List<User>> usersByTeams = UserUtils.getUsersByTeams(users);
+            Map<String, List<User>> usersByTeams = UserUtils.getUserByTeams(users);
 
             List<User> orangeTeam = usersByTeams.get("orangeTeam");
             List<User> pinkTeam = usersByTeams.get("pinkTeam");
