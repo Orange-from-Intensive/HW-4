@@ -16,9 +16,9 @@ interface SQLTransactionFunction {
 
 @Slf4j
 public class JdbcUserRepository implements UserRepository {
-    private static final String ADD_USER = "INSERT INTO users(name, surname, age) VALUES (?, ?, ?)";
+    private static final String ADD_USER = "INSERT INTO users(name, surname, age, team) VALUES (?, ?, ?, ?)";
     private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
-    private static final String UPDATE_USER = "UPDATE users SET name=?, surname=?, age=? WHERE id=? ";
+    private static final String UPDATE_USER = "UPDATE users SET name=?, surname=?, age=?, team=? WHERE id=? ";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
     private static final String GET_USER_BY_ID = "SELECT * FROM users WHERE id=?";
     private final Connection connection;
@@ -43,12 +43,12 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void addUser(String name, String surName, LocalDate birthDate) {
-
+    public void addUser(String name, String surName, LocalDate birthDate, String team) {
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
             statement.setString(1, name);
             statement.setString(2, surName);
             statement.setDate(3, Date.valueOf(birthDate));
+            statement.setString(4, team);
             executeWithTransaction(Connection.TRANSACTION_READ_COMMITTED, conn -> {
                 statement.executeUpdate();
             });
@@ -58,12 +58,13 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void updateUser(String name, String surName, LocalDate birthDate, Long id) {
+    public void updateUser(String name, String surName, LocalDate birthDate, Long id, String team) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_USER)) {
             statement.setString(1, name);
             statement.setString(2, surName);
             statement.setDate(3, Date.valueOf(birthDate));
-            statement.setLong(4, id);
+            statement.setString(4, team);
+            statement.setLong(5, id);
             executeWithTransaction(Connection.TRANSACTION_SERIALIZABLE, conn -> {
                 statement.executeUpdate();
             });
@@ -94,8 +95,9 @@ public class JdbcUserRepository implements UserRepository {
                     String name = resultSet.getString("name");
                     String surname = resultSet.getString("surname");
                     LocalDate birthDate = resultSet.getDate("age").toLocalDate();
+                    String team = resultSet.getString("team");
                     Long id = resultSet.getLong("id");
-                    User user = new User(id, name, surname, birthDate);
+                    User user = new User(id, name, surname, birthDate, team);
                     users.add(user);
                 }
             });
@@ -120,8 +122,9 @@ public class JdbcUserRepository implements UserRepository {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
                 LocalDate birthDate = resultSet.getDate("age").toLocalDate();
+                String team = resultSet.getString("team");
                 Long userId = resultSet.getLong("id");
-                user.set(new User(userId, name, surname, birthDate));
+                user.set(new User(userId, name, surname, birthDate, team));
             });
             return user.get();
         } catch (SQLException e) {

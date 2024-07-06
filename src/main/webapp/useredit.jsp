@@ -9,7 +9,7 @@
 <body>
 <h1>Edit User</h1>
 <c:if test="${user != null}">
-    <form action="${pageContext.request.contextPath}/user/edit" method="post">
+    <form action="${pageContext.request.contextPath}/user?action=update" method="post">
         <input type="hidden" name="id" value="<c:out value="${user.id}" />">
         <label for="name">Name:</label>
         <input type="text" name="name" value="<c:out value="${user.name}" />" required><br><br>
@@ -17,7 +17,10 @@
         <input type="text" name="surname" value="<c:out value="${user.surname}" />" required><br><br>
         <label for="birthDate">Date of Birth:</label>
         <input type="date" name="birthDate" value="<c:out value="${user.birthDate}" />" required><br><br>
+        <label for="team">Team:</label>
+        <input type="text" name="team" value="<c:out value="${user.team}" />" required><br><br>
         <input type="submit" value="Update User">
+
     </form>
 </c:if>
 <c:if test="${user == null}">
