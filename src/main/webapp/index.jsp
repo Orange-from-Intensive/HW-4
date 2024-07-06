@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@
         margin: 0;
     }
 
-    body>form>p {
+    body>p {
         text-align: center;
     }
 </style>
@@ -26,8 +25,10 @@
 <body>
     <h1><%= "Choose your destiny...." %></h1>
     
-    <form action="${pageContext.request.contextPath}/user?action=list"><p><button>List users</button></p></form>
-    <form action="user?action=add"><p><button>Add user</button></p></form>
+<p><a href="${pageContext.request.contextPath}/user?action=list">List users</a></p>
+<p><a href="${pageContext.request.contextPath}/user?action=add">Add user</a></p>
+    
+
 
 </body>
 </html>
