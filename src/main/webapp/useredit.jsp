@@ -6,10 +6,36 @@
 <head>
     <title>Edit User</title>
 </head>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1{
+        margin: 0;
+    text-align: center;
+    }
+    
+
+    body > div{
+        margin: 0 auto;
+        align-content: center;
+        width: auto;
+    }
+    .form{
+        margin: 0 auto;
+        text-align: center;
+    }
+    .Error{
+        text-align: center;
+    }
+
+</style>
 <body>
 <h1>Edit User</h1>
+<div>
 <c:if test="${user != null}">
-    <form action="${pageContext.request.contextPath}/user?action=update" method="post">
+    <form class="form" action="${pageContext.request.contextPath}/user?action=update" method="post">
         <input type="hidden" name="id" value="<c:out value="${user.id}" />">
         <label for="name">Name:</label>
         <input type="text" name="name" value="<c:out value="${user.name}" />" required><br><br>
@@ -26,5 +52,6 @@
 <c:if test="${user == null}">
     <p>Error: User not found!</p>
 </c:if>
+</div>
 </body>
 </html>
