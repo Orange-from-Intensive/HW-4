@@ -16,7 +16,7 @@
         margin: 0;
     text-align: center;
     }
-    body > p{
+    body >form> p{
         text-align:center;
     }
     
