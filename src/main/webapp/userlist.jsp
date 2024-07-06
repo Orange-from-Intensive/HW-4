@@ -18,6 +18,9 @@
         margin: 0;
         text-align: center;
     }
+    p{
+        text-align:center;
+    }
 
 
     body>table>thead>tr {
@@ -61,6 +64,7 @@
 
 <body>
     <h1>Users List</h1>
+    <p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
 
     
     <div class="tables">
