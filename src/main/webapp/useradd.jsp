@@ -19,10 +19,14 @@
     body>div {
         margin: 0 auto;
         align-content: center;
-        width: auto;
+        width: 20vw;
+        border-style: solid;
+        border-radius: 5px;
     }
+
     .form {
-        margin: 0 auto;
+        width: auto;
+        margin: 10px;
         text-align: center;
     }
 </style>
