@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class UserUtils {
 
-    public static Map<String, List<User>> getUserByTeams(List<User> users) {
+    public static Map<String, List<User>> getUsersByTeam(List<User> users) {
 
         return users.stream().collect(Collectors.groupingBy(user -> {
             if ("orange".equalsIgnoreCase(user.getTeam())) {
