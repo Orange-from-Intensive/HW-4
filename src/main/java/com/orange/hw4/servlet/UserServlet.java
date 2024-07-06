@@ -28,6 +28,7 @@ public class UserServlet extends HttpServlet {
 
         getStrategies = new HashMap<>();
         getStrategies.put("list", new ListUsersStrategy(userService));
+        postStrategies.put("generatePairs", new GeneratePairsStrategy(userService));
         getStrategies.put("edit", new EditUserStrategy(userService));
         getStrategies.put("add", (req, resp) -> req.getRequestDispatcher("/useradd.jsp").forward(req, resp));
 
