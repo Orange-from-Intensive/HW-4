@@ -7,7 +7,7 @@
 <body>
 <h1><%= "Choose your destiny...." %></h1>
 <br/>
-<a href="${pageContext.request.contextPath}/users">List users</a>
-<a href="users/add">Add user</a>
+<a href="${pageContext.request.contextPath}/user?action=list">List users</a>
+<a href="user?action=add">Add user</a>
 </body>
 </html>

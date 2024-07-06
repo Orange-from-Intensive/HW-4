@@ -5,14 +5,14 @@
    http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <context-param>
         <param-name>db_url</param-name>
-        <param-value>jdbc:postgresql://192.168.160.129:5432/customers</param-value>
+        <param-value>#{DEFAULT_DB_URL}#</param-value>
     </context-param>
     <context-param>
         <param-name>db_user</param-name>
-        <param-value>orange</param-value>
+        <param-value>#{DEFAULT_DB_USER}#</param-value>
     </context-param>
     <context-param>
         <param-name>db_password</param-name>
-        <param-value>orange</param-value>
+        <param-value>#{DEFAULT_DB_PASSWORD}#</param-value>
     </context-param>
 </web-app>

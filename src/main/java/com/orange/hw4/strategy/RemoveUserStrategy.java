@@ -1,29 +1,23 @@
-package com.orange.hw4.servlet;
+package com.orange.hw4.strategy;
 
 import com.orange.hw4.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-@WebServlet(urlPatterns = "/user/remove")
-public class RemoveUser extends HttpServlet {
-    private UserService userService;
+public class RemoveUserStrategy implements UserActionStrategy {
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        userService = (UserService) config.getServletContext().getAttribute("userService");
+    private final UserService userService;
+
+    public RemoveUserStrategy(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idString = req.getParameter("id");
         try {
             Long id = Long.parseLong(idString);
