@@ -20,7 +20,7 @@
     }
     
 
-    body > div{
+    body >form > div{
         margin: 0 auto;
         align-content: center;
         width: 20vw;
@@ -40,7 +40,7 @@
 </style>
 <body>
 <h1>Edit User</h1>
-<p><a href="${pageContext.request.contextPath}/">go back to main page...</a></p>
+<form action="${pageContext.request.contextPath}/"><p><button>go back to main page...</button></p></form>
 <div>
 <c:if test="${user != null}">
     <form class="form" action="${pageContext.request.contextPath}/user?action=update" method="post">
