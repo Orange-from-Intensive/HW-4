@@ -7,6 +7,12 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+@FunctionalInterface
+interface SQLTransactionFunction {
+    void apply(Connection connection) throws SQLException;
+}
 
 @Slf4j
 public class JdbcUserRepository implements UserRepository {
@@ -21,6 +27,21 @@ public class JdbcUserRepository implements UserRepository {
         this.connection = connection;
     }
 
+    private void executeWithTransaction(int level, SQLTransactionFunction operation) throws SQLException {
+        connection.setAutoCommit(false);
+        int transactionIsolation = connection.getTransactionIsolation();
+        connection.setTransactionIsolation(level);
+        try {
+            operation.apply(connection);
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+        } finally {
+            connection.setTransactionIsolation(transactionIsolation);
+            connection.setAutoCommit(true);
+        }
+    }
+
     @Override
     public void addUser(String name, String surName, LocalDate birthDate, String team) {
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
@@ -28,7 +49,9 @@ public class JdbcUserRepository implements UserRepository {
             statement.setString(2, surName);
             statement.setDate(3, Date.valueOf(birthDate));
             statement.setString(4, team);
-            statement.execute();
+            executeWithTransaction(Connection.TRANSACTION_READ_COMMITTED, conn -> {
+                statement.executeUpdate();
+            });
         } catch (SQLException e) {
             log.error("Record not added to db. Name[{}], Surname[{}], Date[{}]. SQL exception{}", name, surName, birthDate, e);
         }
@@ -42,7 +65,9 @@ public class JdbcUserRepository implements UserRepository {
             statement.setDate(3, Date.valueOf(birthDate));
             statement.setString(4, team);
             statement.setLong(5, id);
-            statement.execute();
+            executeWithTransaction(Connection.TRANSACTION_SERIALIZABLE, conn -> {
+                statement.executeUpdate();
+            });
         } catch (SQLException e) {
             log.error("Record was not updated. Id[{}].  SQL exception[{}]", id, e);
         }
@@ -52,7 +77,9 @@ public class JdbcUserRepository implements UserRepository {
     public void deleteUser(Long id) {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_USER)) {
             statement.setLong(1, id);
-            statement.executeUpdate();
+            executeWithTransaction(Connection.TRANSACTION_READ_UNCOMMITTED, conn -> {
+                statement.executeUpdate();
+            });
         } catch (SQLException e) {
             log.error("Record not removed from db. Id[{}].  SQL exception[{}]", id, e);
         }
@@ -62,16 +89,18 @@ public class JdbcUserRepository implements UserRepository {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS)) {
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                LocalDate birthDate = resultSet.getDate("age").toLocalDate();
-                String team = resultSet.getString("team");
-                Long id = resultSet.getLong("id");
-                User user = new User(id, name, surname, birthDate, team);
-                users.add(user);
-            }
+            executeWithTransaction(Connection.TRANSACTION_READ_COMMITTED, conn -> {
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    String surname = resultSet.getString("surname");
+                    LocalDate birthDate = resultSet.getDate("age").toLocalDate();
+                    String team = resultSet.getString("team");
+                    Long id = resultSet.getLong("id");
+                    User user = new User(id, name, surname, birthDate, team);
+                    users.add(user);
+                }
+            });
         } catch (SQLException e) {
             log.error("Records not retrieved from db. SQL exception[{}]", e);
         }
@@ -82,17 +111,22 @@ public class JdbcUserRepository implements UserRepository {
     public User getUserbyId(Long id) {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID)) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                log.error("Record not found. Id[{}]", id);
-                return null;
-            }
-            String name = resultSet.getString("name");
-            String surname = resultSet.getString("surname");
-            LocalDate birthDate = resultSet.getDate("age").toLocalDate();
-            String team = resultSet.getString("team");
-            Long userId = resultSet.getLong("id");
-            return new User(userId, name, surname, birthDate, team);
+            AtomicReference<User> user = new AtomicReference<>(null);
+            executeWithTransaction(Connection.TRANSACTION_SERIALIZABLE, conn -> {
+                ResultSet resultSet = statement.executeQuery();
+
+                if (!resultSet.next()) {
+                    log.error("Record not found. Id[{}]", id);
+                    throw new SQLException("Record not found. Id[" + id + "]");
+                }
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                LocalDate birthDate = resultSet.getDate("age").toLocalDate();
+                String team = resultSet.getString("team");
+                Long userId = resultSet.getLong("id");
+                user.set(new User(userId, name, surname, birthDate, team));
+            });
+            return user.get();
         } catch (SQLException e) {
             log.error("Record not retrieved from db. SQL exception[{}]", id, e);
         }
