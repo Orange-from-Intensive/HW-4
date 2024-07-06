@@ -64,6 +64,9 @@
         text-align: center;
         width: auto;
     }
+    .td{
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -89,12 +92,12 @@
                 <tbody>
                     <c:forEach items="${orangeTeam}" var="user">
                         <tr>
-                            <td><c:out value="${user.id}"/></td>
-                            <td><c:out value="${user.name}"/></td>
-                            <td><c:out value="${user.surname}"/></td>
-                            <td><c:out value="${user.birthDate}"/></td>
-                            <td><c:out value="${user.team}"/></td>
-                            <td><c:if test="${not empty user}">
+                            <td class="td"><c:out value="${user.id}"/></td>
+                            <td class="td"><c:out value="${user.name}"/></td>
+                            <td class="td"><c:out value="${user.surname}"/></td>
+                            <td class="td"><c:out value="${user.birthDate}"/></td>
+                            <td class="td"><c:out value="${user.team}"/></td>
+                            <td class="td"><c:if test="${not empty user}">
                                     <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                         <button>Edit</button>
                                     </a>
@@ -127,12 +130,12 @@
                 <tbody>
                     <c:forEach items="${pinkTeam}" var="user">
                         <tr>
-                            <td><c:out value="${user.id}"/></td>
-                            <td><c:out value="${user.name}"/></td>
-                            <td><c:out value="${user.surname}"/></td>
-                            <td><c:out value="${user.birthDate}"/></td>
-                            <td><c:out value="${user.team}"/></td>
-                            <td><c:if test="${not empty user}">
+                            <td class="td"><c:out value="${user.id}"/></td>
+                            <td class="td"><c:out value="${user.name}"/></td>
+                            <td class="td"><c:out value="${user.surname}"/></td>
+                            <td class="td"><c:out value="${user.birthDate}"/></td>
+                            <td class="td"><c:out value="${user.team}"/></td>
+                            <td class="td"><c:if test="${not empty user}">
                                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                     <button>Edit</button>
                                 </a>
@@ -165,12 +168,12 @@
                 <tbody>
                     <c:forEach items="${noTeam}" var="user">
                         <tr>
-                            <td><c:out value="${user.id}" /></td>
-                            <td><c:out value="${user.name}" /></td>
-                            <td><c:out value="${user.surname}" /></td>
-                            <td><c:out value="${user.birthDate}" /></td>
-                            <td><c:out value="${user.team}" /></td>
-                            <td><c:if test="${not empty user}">
+                            <td class="td"><c:out value="${user.id}"/></td>
+                            <td class="td"><c:out value="${user.name}"/></td>
+                            <td class="td"><c:out value="${user.surname}"/></td>
+                            <td class="td"><c:out value="${user.birthDate}"/></td>
+                            <td class="td"><c:out value="${user.team}"/></td>
+                            <td class="td"><c:if test="${not empty user}">
                                 <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}"><button>Edit</button>
                                 </a>
                                 <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
