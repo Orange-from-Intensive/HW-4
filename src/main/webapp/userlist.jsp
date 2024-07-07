@@ -119,7 +119,7 @@
             </table>
         </div>
 
-        <h2 style="text-shadow: 5px 5px 5px pink;">Pink Team</h2>
+        <h2 style="text-shadow: 0px 0px 15px pink;">Pink Team</h2>
 
         <div class="table">
             <table>
