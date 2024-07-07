@@ -66,6 +66,11 @@ public class UserServiceImplTest {
         User user = new User(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
         when(userRepository.getUserbyId(anyLong())).thenReturn(user);
 
+        User result = userService.getUserById(1L);
+
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        assertEquals("John", result.getName());
 
     }
 
