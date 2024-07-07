@@ -63,6 +63,9 @@ public class UserServiceImplTest {
 
     @Test
     void testGetUserById() {
+        User user = new User(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
+        when(userRepository.getUserbyId(anyLong())).thenReturn(user);
+
 
     }
 
