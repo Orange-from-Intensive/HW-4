@@ -23,8 +23,9 @@ public class UserUtils {
         }));
     }
 
-    public static int getAge(LocalDate birthDate, LocalDate currentDate) {
-        if ((birthDate != null) && (currentDate != null)) {
+    public static int getAge(LocalDate birthDate) {
+        LocalDate currentDate = LocalDate.now();
+        if (birthDate != null) {
             return Period.between(birthDate, currentDate).getYears();
         } else {
             return 0;
