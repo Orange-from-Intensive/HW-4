@@ -76,7 +76,8 @@
         <p><button>go back to main page...</button></p>
     </form>
     
-    <form action="${pageContext.request.contextPath}/user?action=generatePairs">
+    <form action="${pageContext.request.contextPath}/user">
+        <input type="hidden" name="action" value="generatePairs"/>
         <p><button>create pairs</button></p>
     </form>
     
