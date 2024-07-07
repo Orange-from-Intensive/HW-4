@@ -33,7 +33,7 @@ public class UserValidator {
     }
 
     public void validateName(String name) {
-        String regex = "^[A-Za-z]{5,100}$";
+        String regex = "^[A-Za-z]{2,100}$";
 
         Pattern pattern = Pattern.compile(regex);
 
