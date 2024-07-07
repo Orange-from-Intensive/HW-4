@@ -13,7 +13,7 @@ public class UserValidatorTest {
     void testValidateTeamValidTeams() {
         assertDoesNotThrow(() -> userValidator.validateTeam("NOTEAM"));
         assertDoesNotThrow(() -> userValidator.validateTeam("PINK"));
-
+        assertDoesNotThrow(() -> userValidator.validateTeam("ORANGE"));
     }
 
     @Test
