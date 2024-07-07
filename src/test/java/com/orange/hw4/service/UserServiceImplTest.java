@@ -71,7 +71,7 @@ public class UserServiceImplTest {
         assertNotNull(result);
         assertEquals(1L, result.getId());
         assertEquals("John", result.getName());
-
+        verify(userRepository, times(1)).getUserbyId(1L);
     }
 
 }
