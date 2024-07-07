@@ -37,5 +37,6 @@ public class UserServiceImplTest {
         userService.addUser("John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
 
         verify(userValidator, times(1)).validateTeam("PINK");
+        verify(userRepository, times(1)).updateUser("John", "Doe", LocalDate.of(1990, 5, 15), 1L, "PINK");
     }
 }
