@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.*;
 
 public class UserServiceImplTest {
     @Mock
@@ -34,6 +34,8 @@ public class UserServiceImplTest {
         doNothing().when(userValidator).validateTeam(anyString());
         doNothing().when(userRepository).addUser(anyString(), anyString(), any(LocalDate.class), anyString());
 
+        userService.addUser("John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
 
+        verify(userValidator, times(1)).validateTeam("PINK");
     }
 }
