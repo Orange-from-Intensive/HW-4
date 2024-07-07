@@ -2,6 +2,7 @@ package com.orange.hw4.service;
 
 import com.orange.hw4.repository.UserRepository;
 import com.orange.hw4.validation.UserValidator;
+import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,7 +10,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -44,6 +48,9 @@ public class UserServiceImplTest {
 
     @Test
     void testGetAllUsers() {
+        User user1 = new User(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
+        User user2 = new User(2L, "Jane", "Doe", LocalDate.of(1992, 8, 25), "ORANGE");
+        List<User> users = Arrays.asList(user1, user2);
 
     }
 
