@@ -52,6 +52,12 @@ public class UserServiceImplTest {
         User user2 = new User(2L, "Jane", "Doe", LocalDate.of(1992, 8, 25), "ORANGE");
         List<User> users = Arrays.asList(user1, user2);
 
+        when(userRepository.getAllUsers()).thenReturn(users);
+
+        List<User> result = userService.getAllUsers();
+
+        assertEquals(2, result.size());
+        verify(userRepository, times(1)).getAllUsers();
     }
 
 }
