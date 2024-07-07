@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class ListUsersStrategy implements UserActionStrategy {
@@ -26,7 +25,7 @@ public class ListUsersStrategy implements UserActionStrategy {
         try {
             List<User> userList = userService.getAllUsers();
 
-            Map<String,List<User>> UsersByTeams = UserUtils.getUsersByTeams(userList);
+            Map<String,List<User>> UsersByTeams = UserUtils.getUsersByTeam(userList);
 
             req.setAttribute("orangeTeam", UsersByTeams.get("orangeTeam"));
             req.setAttribute("pinkTeam", UsersByTeams.get("pinkTeam"));
