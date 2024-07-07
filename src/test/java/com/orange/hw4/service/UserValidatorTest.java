@@ -7,9 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class UserValidatorTest {
 
+    private final UserValidator userValidator = new UserValidator();
 
     @Test
     void testValidateTeamValidTeams() {
-
+        assertDoesNotThrow(() -> userValidator.validateTeam("NOTEAM"));
+        assertDoesNotThrow(() -> userValidator.validateTeam("PINK"));
+        assertDoesNotThrow(() -> userValidator.validateTeam("ORANGE"));
     }
 }
