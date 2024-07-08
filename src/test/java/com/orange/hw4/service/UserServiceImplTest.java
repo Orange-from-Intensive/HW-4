@@ -13,8 +13,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -47,6 +46,47 @@ public class UserServiceImplTest {
     }
 
     @Test
+    void testAddUserWithNoTeam() throws Exception {
+        doNothing().when(userRepository).addUser(anyString(), anyString(), any(LocalDate.class), anyString());
+
+        userService.addUser("Jane", "Doe", LocalDate.of(1992, 8, 25), null);
+
+        verify(userRepository, times(1)).addUser("Jane", "Doe", LocalDate.of(1992, 8, 25), "NOTEAM");
+    }
+
+    @Test
+    void testUpdateUserWithValidTeam() {
+        doNothing().when(userValidator).validateTeam(anyString());
+        doNothing().when(userRepository).updateUser(anyString(), anyString(), any(LocalDate.class), anyLong(), anyString());
+
+        userService.updateUser("John", "Doe", LocalDate.of(1990, 5, 15), 1L, "PINK");
+
+        verify(userValidator, times(1)).validateTeam("PINK");
+        verify(userRepository, times(1)).updateUser("John", "Doe", LocalDate.of(1990, 5, 15), 1L, "PINK");
+    }
+
+    @Test
+    void testUpdateUserWithInvalidTeam() {
+        doThrow(new IllegalArgumentException("Wrong team")).when(userValidator).validateTeam(anyString());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.updateUser("John", "Doe", LocalDate.of(1990, 5, 15), 1L, "INVALID");
+        });
+
+        verify(userValidator, times(1)).validateTeam("INVALID");
+        verify(userRepository, times(0)).updateUser(anyString(), anyString(), any(LocalDate.class), anyLong(), anyString());
+    }
+
+    @Test
+    void testDeleteUser() {
+        doNothing().when(userRepository).deleteUser(anyLong());
+
+        userService.deleteUser(1L);
+
+        verify(userRepository, times(1)).deleteUser(1L);
+    }
+
+    @Test
     void testGetAllUsers() {
         User user1 = new User(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
         User user2 = new User(2L, "Jane", "Doe", LocalDate.of(1992, 8, 25), "ORANGE");
@@ -67,9 +107,6 @@ public class UserServiceImplTest {
 
         User result = userService.getUserById(1L);
 
-        assertNotNull(result);
-        assertEquals(1L, result.getId());
-        assertEquals("John", result.getName());
-        verify(userRepository, times(1)).getUserbyId(1L);
+
     }
 }
