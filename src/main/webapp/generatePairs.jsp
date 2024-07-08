@@ -46,8 +46,8 @@
             <tbody>
                 <c:forEach items="${opponents}" var="opponent">
                     <tr>
-                        <td class="names"><c:out value="${opponent.orange.name} ${opponent.orange.surname}" />awd</td>
-                        <td class="names"><c:out value="${opponent.pink.name} ${opponent.pink.surname}" />dwd</td>
+                        <td class="names"><c:out value="${opponent.orange.name} ${opponent.orange.surname}" /></td>
+                        <td class="names"><c:out value="${opponent.pink.name} ${opponent.pink.surname}" /></td>
                     </tr>
                 </c:forEach>
             </tbody>
