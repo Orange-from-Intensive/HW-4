@@ -1,7 +1,7 @@
 package com.orange.hw4.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import model.User;
+import com.orange.hw4.model.User;
 
 import java.sql.*;
 import java.time.LocalDate;
