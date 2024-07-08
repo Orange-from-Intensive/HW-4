@@ -107,6 +107,9 @@ public class UserServiceImplTest {
 
         User result = userService.getUserById(1L);
 
-
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        assertEquals("John", result.getName());
+        verify(userRepository, times(1)).getUserbyId(1L);
     }
 }
