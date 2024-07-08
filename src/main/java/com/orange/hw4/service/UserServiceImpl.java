@@ -19,9 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(String name, String surname, LocalDate birthDate, String team) throws Exception {
-        userValidator.validateAge(birthDate);
         userValidator.validateName(name);
         userValidator.validateName(surname);
+        userValidator.validateAge(birthDate);
 
         if (Objects.nonNull(team)) {
             userValidator.validateTeam(team);
@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(String name, String surname, LocalDate birthDate, Long id, String team) throws IllegalArgumentException {
         userValidator.validateTeam(team);
-        userValidator.validateAge(birthDate);
         userValidator.validateName(name);
         userValidator.validateName(surname);
+        userValidator.validateAge(birthDate);
 
         userRepository.updateUser(name, surname,birthDate, id, team);
     }
