@@ -43,24 +43,27 @@
 <h1>Edit User</h1>
 <form action="${pageContext.request.contextPath}/"><p><button>go back to main page...</button></p></form>
 <div>
-<c:if test="${user != null}">
-    <form class="form" action="${pageContext.request.contextPath}/user?action=update" method="post">
-        <input type="hidden" name="id" value="<c:out value="${user.id}" />">
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="<c:out value="${user.name}" />" required><br><br>
-        <label for="surname">Surname:</label>
-        <input type="text" name="surname" value="<c:out value="${user.surname}" />" required><br><br>
-        <label for="birthDate">Date of Birth:</label>
-        <input type="date" name="birthDate" value="<c:out value="${user.birthDate}" />" required><br><br>
-        <label for="team">Team:</label>
-        <input type="text" name="team" value="<c:out value="${user.team}" />" required><br><br>
-        <input type="submit" value="Update User">
+    <c:if test="${user != null}">
+        <c:if test="${not empty errorMessage}">
+            <p class="Error">${errorMessage}</p>
+        </c:if>
+        <form class="form" action="${pageContext.request.contextPath}/user?action=update" method="post">
+            <input type="hidden" name="id" value="<c:out value="${user.id}" />">
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="<c:out value="${user.name}" />" required><br><br>
+            <label for="surname">Surname:</label>
+            <input type="text" name="surname" value="<c:out value="${user.surname}" />" required><br><br>
+            <label for="birthDate">Date of Birth:</label>
+            <input type="date" name="birthDate" value="<c:out value="${user.birthDate}" />" required><br><br>
+            <label for="team">Team:</label>
+            <input type="text" name="team" value="<c:out value="${user.team}" />" required><br><br>
+            <input type="submit" value="Update User">
 
-    </form>
-</c:if>
-<c:if test="${user == null}">
-    <p>Error: User not found!</p>
-</c:if>
+        </form>
+    </c:if>
+    <c:if test="${not empty param.errorMessage}">
+        <p style="color:red;" class="Error">${param.errorMessage}</p>
+    </c:if>
 </div>
 </body>
 </html>

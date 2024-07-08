@@ -1,8 +1,10 @@
 package com.orange.hw4.strategy;
 
+import com.orange.hw4.exception.InvalidAgeException;
 import com.orange.hw4.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,7 +20,7 @@ public class AddUserStrategy implements UserActionStrategy {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse resp) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse resp) throws IOException, ServletException {
         final String name = request.getParameter("name");
         final String surname = request.getParameter("surname");
         final LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
@@ -28,7 +30,8 @@ public class AddUserStrategy implements UserActionStrategy {
             resp.sendRedirect(request.getContextPath() + "/index.jsp");
         } catch (Exception e) {
             log.warn("Error adding user.", e);
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding user.");
+            request.setAttribute("errorMessage", "Error adding user: " + e.getMessage());
+            request.getRequestDispatcher("/useradd.jsp").forward(request, resp);
         }
     }
 }
