@@ -9,7 +9,7 @@ public class UserValidator {
     }
 
     public void validateTeam(String team) throws IllegalArgumentException {
-        if (Arrays.stream(TeamType.values()).anyMatch(teamType -> team.equalsIgnoreCase(teamType.toString()))) {
+        if (team != null && Arrays.stream(TeamType.values()).anyMatch(teamType -> team.equalsIgnoreCase(teamType.toString()))) {
             return;
         }
         throw new IllegalArgumentException("Wrong team");
