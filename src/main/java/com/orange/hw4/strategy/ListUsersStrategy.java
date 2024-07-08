@@ -1,5 +1,6 @@
 package com.orange.hw4.strategy;
 
+import com.orange.hw4.util.UserUtils;
 import com.orange.hw4.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import model.User;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Slf4j
 public class ListUsersStrategy implements UserActionStrategy {
@@ -24,21 +25,11 @@ public class ListUsersStrategy implements UserActionStrategy {
         try {
             List<User> userList = userService.getAllUsers();
 
-            List<User> orangeTeam = userList.stream()
-                    .filter(user -> "orange".equalsIgnoreCase(user.getTeam()))
-                    .collect(Collectors.toList());
+            Map<String,List<User>> UsersByTeams = UserUtils.getUsersByTeam(userList);
 
-            List<User> pinkTeam = userList.stream()
-                    .filter(user -> "pink".equalsIgnoreCase(user.getTeam()))
-                    .collect(Collectors.toList());
-
-            List<User> noTeam = userList.stream()
-                    .filter(user -> "noteam".equalsIgnoreCase(user.getTeam()))
-                    .collect(Collectors.toList());
-
-            req.setAttribute("orangeTeam", orangeTeam);
-            req.setAttribute("pinkTeam", pinkTeam);
-            req.setAttribute("noTeam", noTeam);
+            req.setAttribute("orangeTeam", UsersByTeams.get("orangeTeam"));
+            req.setAttribute("pinkTeam", UsersByTeams.get("pinkTeam"));
+            req.setAttribute("noTeam", UsersByTeams.get("noTeam"));
 
             req.setAttribute("userList", userList);
 
