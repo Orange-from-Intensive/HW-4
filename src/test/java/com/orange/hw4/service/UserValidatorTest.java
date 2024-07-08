@@ -21,4 +21,17 @@ public class UserValidatorTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userValidator.validateTeam("INVALID"));
         assertEquals("Wrong team", exception.getMessage());
     }
+
+    @Test
+    void testValidateTeamCaseInsensitive() {
+        assertDoesNotThrow(() -> userValidator.validateTeam("notEAM"));
+        assertDoesNotThrow(() -> userValidator.validateTeam("pink"));
+        assertDoesNotThrow(() -> userValidator.validateTeam("ORANGE"));
+    }
+
+    @Test
+    void testValidateTeamNullTeam() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userValidator.validateTeam(null));
+        assertEquals("Wrong team", exception.getMessage());
+    }
 }
