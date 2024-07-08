@@ -56,7 +56,11 @@
             <label for="birthDate">Date of Birth:</label>
             <input type="date" name="birthDate" value="<c:out value="${user.birthDate}" />" required><br><br>
             <label for="team">Team:</label>
-            <input type="text" name="team" value="<c:out value="${user.team}" />" required><br><br>
+            <select name="team" required><br><br>
+                <option value="noteam">no team</option>
+                <option value="orange">orange</option>
+                <option value="pink">pink</option>
+            </select>
             <input type="submit" value="Update User">
 
         </form>
