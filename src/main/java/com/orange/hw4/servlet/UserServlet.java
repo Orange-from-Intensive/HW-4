@@ -18,30 +18,28 @@ import java.util.Map;
 @Slf4j
 public class UserServlet extends HttpServlet {
 
-    private Map<String, UserActionStrategy> getStrategies;
-    private Map<String, UserActionStrategy> postStrategies;
+    private Map<String, UserActionStrategy> strategyMap;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         UserService userService = (UserService) config.getServletContext().getAttribute("userService");
 
-        getStrategies = new HashMap<>();
-        getStrategies.put("list", new ListUsersStrategy(userService));
-        getStrategies.put("generatePairs", new GeneratePairsStrategy(userService));
-        getStrategies.put("edit", new EditUserStrategy(userService));
-        getStrategies.put("add", (req, resp) -> req.getRequestDispatcher("/useradd.jsp").forward(req, resp));
+        strategyMap = new HashMap<>();
+        strategyMap.put("list", new ListUsersStrategy(userService));
+        strategyMap.put("generatePairs", new GeneratePairsStrategy(userService));
+        strategyMap.put("edit", new EditUserStrategy(userService));
+        strategyMap.put("addget", (req, resp) -> req.getRequestDispatcher("/useradd.jsp").forward(req, resp));
 
-        postStrategies = new HashMap<>();
-        postStrategies.put("add", new AddUserStrategy(userService));
-        postStrategies.put("update", new UpdateUserStrategy(userService));
-        postStrategies.put("remove", new RemoveUserStrategy(userService));
+        strategyMap.put("add", new AddUserStrategy(userService));
+        strategyMap.put("update", new UpdateUserStrategy(userService));
+        strategyMap.put("remove", new RemoveUserStrategy(userService));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        UserActionStrategy strategy = getStrategies.get(action);
+        UserActionStrategy strategy = strategyMap.get(action);
         if (strategy != null) {
             strategy.execute(req, resp);
         } else {
@@ -52,7 +50,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        UserActionStrategy strategy = postStrategies.get(action);
+        UserActionStrategy strategy = strategyMap.get(action);
         if (strategy != null) {
             strategy.execute(req, resp);
         } else {

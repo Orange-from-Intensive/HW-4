@@ -26,7 +26,7 @@
     <h1><%= "Choose your destiny...." %></h1>
     
 <p><a href="${pageContext.request.contextPath}/user?action=list">List users</a></p>
-<p><a href="${pageContext.request.contextPath}/user?action=add">Add user</a></p>
+<p><a href="${pageContext.request.contextPath}/user?action=addget">Add user</a></p>
     
 
 
