@@ -5,54 +5,38 @@
 <html>
 <head>
     <title>Fight club</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<style>
-    
-    h1 {
-        margin: 0;
-        text-align: center;
-    }
-
-    .table {
-        margin: 0 auto;
-        width: fit-content;
-        text-align: center;
-        border-style: solid;
-        border-radius: 10px;
-    }
-
-    body>form>p{
-        text-align:center;
-    }
-    .names{
-        text-align: center;
-    }
-
-</style>
-
 <body>
+    <main>
+        <h1>Fight!</h1>
+        <form action="${pageContext.request.contextPath}/">
+            <p><button>Go back to main page...</button></p>
+        </form>
 
-    <h1>Fight!</h1>
-    <form action="${pageContext.request.contextPath}/"><p><button>go back to main page...</button></p></form>
-
-    <div class="table">
-        <table>
-            <thead>
-                <tr>
-                    <th style="text-shadow: 0px 0px 15px orange;">Orange Team Member</th>
-                    <th style="text-shadow: 0px 0px 30px pink;">Pink Team Member</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${opponents}" var="opponent">
+        <div class="table">
+            <table>
+                <thead>
                     <tr>
-                        <td class="names"><c:out value="${opponent.orange.name} ${opponent.orange.surname}" /></td>
-                        <td class="names"><c:out value="${opponent.pink.name} ${opponent.pink.surname}" /></td>
+                        <th class="orange">Orange Team Member</th>
+                        <th class="pink">Pink Team Member</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach items="${opponents}" var="opponent">
+                        <tr>
+                            <td class="names"><c:out value="${opponent.orange.name} ${opponent.orange.surname}" /></td>
+                            <td class="names"><c:out value="${opponent.pink.name} ${opponent.pink.surname}" /></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
 
-    </div>
+        <form action="${pageContext.request.contextPath}/user">
+            <input type="hidden" name="action" value="generatePairs"/>
+            <p><button class="pairs">New pairs</button></p>
+        </form>
+    </main>
 </body>
 </html>
