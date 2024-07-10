@@ -66,4 +66,16 @@ public class JdbcUserRepositoryTest {
         verify(statement).setLong(5, id);
         verify(statement).executeUpdate();
     }
+
+    @Test
+    public void testDeleteUser() throws SQLException {
+        PreparedStatement statement = mock(PreparedStatement.class);
+        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+
+        Long id = 1L;
+        repository.deleteUser(id);
+
+        verify(statement).setLong(1, id);
+        verify(statement).executeUpdate();
+    }
 }
