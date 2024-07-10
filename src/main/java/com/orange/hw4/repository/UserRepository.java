@@ -15,5 +15,5 @@ public interface UserRepository {
 
     User getUserbyId(Long id);
 
-    Map<Integer, List<Integer>> getUsersByOpponents();
+    Map<Integer, Map<Integer, Integer>> getUsersByOpponents();
 }

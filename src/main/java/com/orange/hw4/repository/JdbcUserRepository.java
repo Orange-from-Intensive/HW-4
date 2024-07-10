@@ -23,7 +23,7 @@ public class JdbcUserRepository implements UserRepository {
     private static final String UPDATE_USER = "UPDATE users SET name=?, surname=?, age=?, team=? WHERE id=? ";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
     private static final String GET_USER_BY_ID = "SELECT * FROM users WHERE id=?";
-    private static final String GET_PREVIOUS_OPPONENTS = "SELECT user_one_id, user_two_id FROM marks";
+    private static final String GET_PREVIOUS_OPPONENT_COUNTS = "SELECT user_one_id, user_two_id, COUNT(*) AS count FROM marks GROUP BY user_one_id, user_two_id";
     private final Connection connection;
 
     public JdbcUserRepository(Connection connection) {
@@ -137,20 +137,21 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public Map<Integer, List<Integer>> getUsersByOpponents() {
+    public Map<Integer, Map<Integer, Integer>> getUsersByOpponents() {
 
-        Map<Integer, List<Integer>> opponentsMap = new HashMap<>();
+        Map<Integer, Map<Integer, Integer>> opponentsMap = new HashMap<>();
 
-        try (PreparedStatement statement = connection.prepareStatement(GET_PREVIOUS_OPPONENTS)) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_PREVIOUS_OPPONENT_COUNTS)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int userOneId = resultSet.getInt("user_one_id");
                 int userTwoId = resultSet.getInt("user_two_id");
+                int count = resultSet.getInt("count");
 
                 //We know that in the table userOneId - is always 1 team, and userTwoId - is always another.
-                opponentsMap.putIfAbsent(userOneId, new ArrayList<>());
+                opponentsMap.putIfAbsent(userOneId, new HashMap<>());
 
-                opponentsMap.get(userOneId).add(userTwoId);
+                opponentsMap.get(userOneId).put(userTwoId, count);
             }
         } catch (SQLException e) {
             log.error("Error retrieving previous opponents.", e);
