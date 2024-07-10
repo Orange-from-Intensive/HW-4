@@ -6,11 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import java.sql.Connection;
+import java.sql.*;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -52,5 +49,23 @@ public class JdbcJournalRepositoryTest {
 
         verify(statement).setLong(1, id);
         verify(statement).executeUpdate();
+    }
+
+    @Test
+    public void testGetJournalFeed() throws SQLException {
+        PreparedStatement statement = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+        when(statement.executeQuery()).thenReturn(resultSet);
+
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
+        when(resultSet.getDate("lesson_date")).thenReturn(Date.valueOf(LocalDate.of(2023, 1, 1)));
+        when(resultSet.getLong("user_one_id")).thenReturn(1L);
+        when(resultSet.getLong("user_two_id")).thenReturn(2L);
+        when(resultSet.getDouble("user_one_mark")).thenReturn(2.0);
+        when(resultSet.getDouble("user_two_mark")).thenReturn(3.0);
+        when(resultSet.getLong("id")).thenReturn(1L);
+
+        
     }
 }
