@@ -45,4 +45,18 @@ public class JdbcUserRepositoryTest {
         verify(statement).setString(4, team);
         verify(statement).executeUpdate();
     }
+
+    @Test
+    public void testUpdateUser() throws SQLException {
+        PreparedStatement statement = mock(PreparedStatement.class);
+        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+
+        String name = "John";
+        String surName = "Doe";
+        LocalDate birthDate = LocalDate.of(1990, 1, 1);
+        Long id = 1L;
+        String team = "Team A";
+
+ 
+    }
 }
