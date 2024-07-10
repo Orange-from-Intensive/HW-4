@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -38,6 +39,10 @@ public class JdbcUserRepositoryTest {
 
         repository.addUser(name, surName, birthDate, team);
 
-       
+        verify(statement).setString(1, name);
+        verify(statement).setString(2, surName);
+        verify(statement).setDate(3, Date.valueOf(birthDate));
+        verify(statement).setString(4, team);
+        verify(statement).executeUpdate();
     }
 }
