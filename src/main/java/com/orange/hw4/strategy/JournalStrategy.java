@@ -50,8 +50,8 @@ public class JournalStrategy implements UserActionStrategy {
 
             req.getRequestDispatcher("/journal.jsp").forward(req,resp);
         } catch (Exception e) {
-            log.warn("Error retrieving journal.", e);
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving journal.");
+            log.warn("Error retrieving journal. " + e.getMessage(), e);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving journal." + e.getMessage());
         }
     }
 }
