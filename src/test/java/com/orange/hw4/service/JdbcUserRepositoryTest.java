@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @Slf4j
@@ -117,5 +118,13 @@ public class JdbcUserRepositoryTest {
         when(resultSet.getString("team")).thenReturn("Team A");
         when(resultSet.getLong("id")).thenReturn(1L);
 
+        User user = repository.getUserbyId(1L);
+
+        assertNotNull(user);
+        assertEquals("John", user.getName());
+        assertEquals("Doe", user.getSurname());
+        assertEquals(LocalDate.of(1990, 1, 1), user.getBirthDate());
+        assertEquals("Team A", user.getTeam());
+    }
     }
 }
