@@ -126,5 +126,5 @@ public class JdbcUserRepositoryTest {
         assertEquals(LocalDate.of(1990, 1, 1), user.getBirthDate());
         assertEquals("Team A", user.getTeam());
     }
-    
+
 }
