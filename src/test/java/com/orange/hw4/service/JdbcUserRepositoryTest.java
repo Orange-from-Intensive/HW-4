@@ -57,6 +57,13 @@ public class JdbcUserRepositoryTest {
         Long id = 1L;
         String team = "Team A";
 
- 
+        repository.updateUser(name, surName, birthDate, id, team);
+
+        verify(statement).setString(1, name);
+        verify(statement).setString(2, surName);
+        verify(statement).setDate(3, Date.valueOf(birthDate));
+        verify(statement).setString(4, team);
+        verify(statement).setLong(5, id);
+        verify(statement).executeUpdate();
     }
 }
