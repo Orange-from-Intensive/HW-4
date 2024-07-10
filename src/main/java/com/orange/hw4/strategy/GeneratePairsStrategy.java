@@ -41,6 +41,16 @@ public class GeneratePairsStrategy implements UserActionStrategy{
     }
 
     private List<Opponents> generateRandomPairs(List<User> orangeTeam, List<User> pinkTeam) {
-        
+        Collections.shuffle(orangeTeam);
+        Collections.shuffle(pinkTeam);
+
+        List<Opponents> opponents = new ArrayList<>();
+        int smallestList = Math.min(pinkTeam.size(), orangeTeam.size());
+
+        for (int i = 0; i < smallestList; i++) {
+            opponents.add(new Opponents(orangeTeam.get(i), pinkTeam.get(i)));
+        }
+
+        return opponents;
     }
 }
