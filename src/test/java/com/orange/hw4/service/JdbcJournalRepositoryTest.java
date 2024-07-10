@@ -40,6 +40,15 @@ public class JdbcJournalRepositoryTest {
         verify(statement).setLong(2, user1.getId());
         verify(statement).setLong(3, user2.getId());
         verify(statement).executeUpdate();
+    }
+
+    @Test
+    public void testRemovePairs() throws SQLException {
+        PreparedStatement statement = mock(PreparedStatement.class);
+        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+
+        long id = 1L;
+        repository.removePairs(id);
 
     }
 }
