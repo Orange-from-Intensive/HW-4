@@ -53,7 +53,7 @@ public class JdbcUserRepository implements UserRepository {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record not added to db. Name[{}], Surname[{}], Date[{}]. SQL exception{}", name, surName, birthDate, e);
+            log.error("Record not added to db. "+ e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class JdbcUserRepository implements UserRepository {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record was not updated. Id[{}].  SQL exception[{}]", id, e);
+            log.error("Record was not updated" + e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class JdbcUserRepository implements UserRepository {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record not removed from db. Id[{}].  SQL exception[{}]", id, e);
+            log.error("Record was not removed" + e.getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ public class JdbcUserRepository implements UserRepository {
                 }
             });
         } catch (SQLException e) {
-            log.error("Records not retrieved from db. SQL exception[{}]", e);
+            log.error("Records were not retrieved from db"+ e.getMessage());
         }
         return users;
     }
@@ -128,7 +128,7 @@ public class JdbcUserRepository implements UserRepository {
             });
             return user.get();
         } catch (SQLException e) {
-            log.error("Record not retrieved from db. SQL exception[{}]", id, e);
+            log.error("Record was not retrieved from db" + e.getMessage());
         }
         return null;
     }
