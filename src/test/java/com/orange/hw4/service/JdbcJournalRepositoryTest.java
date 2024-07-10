@@ -50,5 +50,7 @@ public class JdbcJournalRepositoryTest {
         long id = 1L;
         repository.removePairs(id);
 
+        verify(statement).setLong(1, id);
+        verify(statement).executeUpdate();
     }
 }
