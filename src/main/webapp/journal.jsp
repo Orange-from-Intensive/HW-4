@@ -26,7 +26,7 @@
                     <td><c:out value="${journalView.user1.name} ${journalView.user1.surname}"/></td>
                     <td><c:out value="${journalView.mark1}"/></td>
                     <td><c:out value="${journalView.user2.name} ${journalView.user2.surname}"/></td>
-                    <td><c:out value="${journalView.mark2}"></td>
+                    <td><c:out value="${journalView.mark2}"/></td>
                 </tr>
             </c:forEach>
         </tbody>
