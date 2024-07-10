@@ -1,5 +1,6 @@
 package com.orange.hw4.service;
 
+import com.orange.hw4.model.User;
 import com.orange.hw4.repository.JdbcUserRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,12 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import java.sql.Connection;
+import java.sql.*;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -77,5 +76,24 @@ public class JdbcUserRepositoryTest {
 
         verify(statement).setLong(1, id);
         verify(statement).executeUpdate();
+    }
+
+    @Test
+    public void testGetAllUsers() throws SQLException {
+        PreparedStatement statement = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+        when(statement.executeQuery()).thenReturn(resultSet);
+
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
+        when(resultSet.getString("name")).thenReturn("John");
+        when(resultSet.getString("surname")).thenReturn("Doe");
+        when(resultSet.getDate("age")).thenReturn(Date.valueOf(LocalDate.of(1990, 1, 1)));
+        when(resultSet.getString("team")).thenReturn("Team A");
+        when(resultSet.getLong("id")).thenReturn(1L);
+
+        List<User> users = repository.getAllUsers();
+
+        
     }
 }
