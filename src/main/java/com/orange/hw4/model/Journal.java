@@ -13,7 +13,8 @@ public class Journal {
     private Long id;
     private LocalDate lessonDate;
     private Long user1_id;
-    private Long user2_id;
     private Double user1_mark;
+
+    private Long user2_id;
     private Double user2_mark;
 }

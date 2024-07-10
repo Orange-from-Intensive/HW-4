@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@FunctionalInterface
-interface SQLTransactionFunction {
-    void apply(Connection connection) throws SQLException;
-}
+
 
 @Slf4j
 public class JdbcUserRepository implements UserRepository {
