@@ -4,6 +4,7 @@ import com.orange.hw4.model.User;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface UserRepository {
     void addUser(String name, String surName, LocalDate birthDate, String team);
@@ -13,4 +14,6 @@ public interface UserRepository {
     List<User> getAllUsers();
 
     User getUserbyId(Long id);
+
+    Map<Integer, List<Integer>> getUsersByOpponents();
 }

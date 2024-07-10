@@ -6,6 +6,7 @@ import com.orange.hw4.model.User;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class UserServiceImpl implements UserService {
@@ -55,5 +56,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.getUserbyId(id);
+    }
+
+    @Override
+    public Map<Integer, List<Integer>> getUsersByOpponents() {
+        return userRepository.getUsersByOpponents();
     }
 }

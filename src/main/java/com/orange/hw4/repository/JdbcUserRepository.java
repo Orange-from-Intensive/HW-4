@@ -6,7 +6,9 @@ import com.orange.hw4.model.User;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @FunctionalInterface
@@ -21,6 +23,7 @@ public class JdbcUserRepository implements UserRepository {
     private static final String UPDATE_USER = "UPDATE users SET name=?, surname=?, age=?, team=? WHERE id=? ";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
     private static final String GET_USER_BY_ID = "SELECT * FROM users WHERE id=?";
+    private static final String GET_PREVIOUS_OPPONENTS = "SELECT user_one_id, user_two_id FROM marks";
     private final Connection connection;
 
     public JdbcUserRepository(Connection connection) {
@@ -131,5 +134,28 @@ public class JdbcUserRepository implements UserRepository {
             log.error("Record not retrieved from db. SQL exception[{}]", id, e);
         }
         return null;
+    }
+
+    @Override
+    public Map<Integer, List<Integer>> getUsersByOpponents() {
+
+        Map<Integer, List<Integer>> opponentsMap = new HashMap<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(GET_PREVIOUS_OPPONENTS)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int userOneId = resultSet.getInt("user_one_id");
+                int userTwoId = resultSet.getInt("user_two_id");
+
+                //We know that in the table userOneId - is always 1 team, and userTwoId - is always another.
+                opponentsMap.putIfAbsent(userOneId, new ArrayList<>());
+
+                opponentsMap.get(userOneId).add(userTwoId);
+            }
+        } catch (SQLException e) {
+            log.error("Error retrieving previous opponents.", e);
+        }
+
+        return opponentsMap;
     }
 }
