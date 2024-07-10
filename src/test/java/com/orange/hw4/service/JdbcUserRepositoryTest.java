@@ -102,4 +102,20 @@ public class JdbcUserRepositoryTest {
         assertEquals(LocalDate.of(1990, 1, 1), user.getBirthDate());
         assertEquals("Team A", user.getTeam());
     }
+
+    @Test
+    public void testGetUserById() throws SQLException {
+        PreparedStatement statement = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+        when(statement.executeQuery()).thenReturn(resultSet);
+
+        when(resultSet.next()).thenReturn(true);
+        when(resultSet.getString("name")).thenReturn("John");
+        when(resultSet.getString("surname")).thenReturn("Doe");
+        when(resultSet.getDate("age")).thenReturn(Date.valueOf(LocalDate.of(1990, 1, 1)));
+        when(resultSet.getString("team")).thenReturn("Team A");
+        when(resultSet.getLong("id")).thenReturn(1L);
+
+    }
 }
