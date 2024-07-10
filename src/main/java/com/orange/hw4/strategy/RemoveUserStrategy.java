@@ -22,7 +22,6 @@ public class RemoveUserStrategy implements UserActionStrategy {
         try {
             Long id = Long.parseLong(idString);
             userService.deleteUser(id);
-            resp.sendRedirect(req.getContextPath() + "/index.jsp");
         } catch (Exception e) {
             log.warn("Error removing user.", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error removing user.");
