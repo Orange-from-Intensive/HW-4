@@ -1,5 +1,6 @@
 package com.orange.hw4.servlet;
 
+import com.orange.hw4.service.JournalService;
 import com.orange.hw4.service.UserService;
 import com.orange.hw4.strategy.*;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +25,14 @@ public class UserServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         UserService userService = (UserService) config.getServletContext().getAttribute("userService");
+        JournalService journalService = (JournalService) config.getServletContext().getAttribute("journalService");
 
         strategyMap = new HashMap<>();
         strategyMap.put("list", new ListUsersStrategy(userService));
         strategyMap.put("generatePairs", new GeneratePairsStrategy(userService));
         strategyMap.put("edit", new EditUserStrategy(userService));
         strategyMap.put("addget", (req, resp) -> req.getRequestDispatcher("/useradd.jsp").forward(req, resp));
-
+        strategyMap.put("journal", new JournalStrategy(userService, journalService));
         strategyMap.put("add", new AddUserStrategy(userService));
         strategyMap.put("update", new UpdateUserStrategy(userService));
         strategyMap.put("remove", new RemoveUserStrategy(userService));

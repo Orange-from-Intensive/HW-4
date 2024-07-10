@@ -9,11 +9,11 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Journal {
+public class JournalViewHelper {
     private Long id;
     private LocalDate lessonDate;
-    private Long user1_id;
-    private Double user1_mark;
-    private Long user2_id;
-    private Double user2_mark;
+    private User user1;
+    private Double mark1;
+    private User user2;
+    private Double mark2;
 }
