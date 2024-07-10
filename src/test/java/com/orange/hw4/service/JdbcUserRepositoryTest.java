@@ -13,6 +13,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @Slf4j
@@ -94,6 +95,11 @@ public class JdbcUserRepositoryTest {
 
         List<User> users = repository.getAllUsers();
 
-        
+        assertEquals(1, users.size());
+        User user = users.get(0);
+        assertEquals("John", user.getName());
+        assertEquals("Doe", user.getSurname());
+        assertEquals(LocalDate.of(1990, 1, 1), user.getBirthDate());
+        assertEquals("Team A", user.getTeam());
     }
 }
