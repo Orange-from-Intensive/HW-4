@@ -34,7 +34,7 @@
 
         <div class="menu">
             <div class="link"><a href="${pageContext.request.contextPath}/user?action=list">List users</a></div>
-            <div class="link"><a href="${pageContext.request.contextPath}/user?action=add">Add user</a></div>
+            <div class="link"><a href="${pageContext.request.contextPath}/user?action=addget">Add user</a></div>
         </div>
 
         <form action="${pageContext.request.contextPath}/user">
