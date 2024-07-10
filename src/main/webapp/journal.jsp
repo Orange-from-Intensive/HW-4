@@ -22,11 +22,11 @@
         <tbody>
             <c:forEach items="${journalView}" var="pairs">
                 <tr>
-                    <td><c:out value="${journalView.lessonDate}"/></td>
-                    <td><c:out value="${journalView.user1.name} ${journalView.user1.surname}"/></td>
-                    <td><c:out value="${journalView.mark1}"/></td>
-                    <td><c:out value="${journalView.user2.name} ${journalView.user2.surname}"/></td>
-                    <td><c:out value="${journalView.mark2}"/></td>
+                    <td><c:out value="${pairs.lessonDate}"/></td>
+                    <td><c:out value="${pairs.user1.name} ${pairs.user1.surname}"/></td>
+                    <td><c:out value="${pairs.mark1}"/></td>
+                    <td><c:out value="${pairs.user2.name} ${pairs.user2.surname}"/></td>
+                    <td><c:out value="${pairs.mark2}"/></td>
                 </tr>
             </c:forEach>
         </tbody>
