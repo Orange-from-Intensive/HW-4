@@ -29,7 +29,7 @@ public class GeneratePairsStrategy implements UserActionStrategy{
             List<User> orangeTeam = usersByTeams.get("orangeTeam");
             List<User> pinkTeam = usersByTeams.get("pinkTeam");
 
-           // List<Opponents> opponents = generateRandomPairs(orangeTeam, pinkTeam);
+            List<Opponents> opponents = generateRandomPairs(orangeTeam, pinkTeam);
 
             request.setAttribute("opponents", opponents);
             request.getRequestDispatcher("/generatePairs.jsp").forward(request, resp);
@@ -38,5 +38,9 @@ public class GeneratePairsStrategy implements UserActionStrategy{
             log.warn("Error during generating pairs.", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error during generating pairs.");
         }
+    }
+
+    private List<Opponents> generateRandomPairs(List<User> orangeTeam, List<User> pinkTeam) {
+        
     }
 }
