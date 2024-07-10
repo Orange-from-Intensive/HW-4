@@ -23,29 +23,18 @@ public class GeneratePairsStrategy implements UserActionStrategy{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         try {
-
             List<User> users = userService.getAllUsers();
             Map<String, List<User>> usersByTeams = UserUtils.getUsersByTeam(users);
 
             List<User> orangeTeam = usersByTeams.get("orangeTeam");
             List<User> pinkTeam = usersByTeams.get("pinkTeam");
 
-            Collections.shuffle(orangeTeam);
-            Collections.shuffle(pinkTeam);
-
-            List<Opponents> opponents = new ArrayList<>();
-
-            int smallestList = Math.min(pinkTeam.size(), orangeTeam.size());
-
-            for (int i=0; i<smallestList; i++) {
-                opponents.add(new Opponents(orangeTeam.get(i), pinkTeam.get(i)));
-            }
+           // List<Opponents> opponents = generateRandomPairs(orangeTeam, pinkTeam);
 
             request.setAttribute("opponents", opponents);
-
             request.getRequestDispatcher("/generatePairs.jsp").forward(request, resp);
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.warn("Error during generating pairs.", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error during generating pairs.");
         }
