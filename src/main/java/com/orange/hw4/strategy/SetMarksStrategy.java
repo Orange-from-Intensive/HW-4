@@ -42,8 +42,8 @@ public class SetMarksStrategy implements UserActionStrategy {
         req.setAttribute("journal", view);
         req.getRequestDispatcher("/setmarks.jsp").forward(req,resp);
         }catch (Exception e){
-            log.error(e.getMessage());
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving journal." + e.getMessage());
+            log.error(e.getMessage() + " ");
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving journal. " + e.getMessage());
         }
     }
 }
