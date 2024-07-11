@@ -13,7 +13,7 @@
 <div>
 
     <form action="${pageContext.request.contextPath}/user?action=updatemarks" method="post">
-        
+        <input type="hidden" name="id" value="<c:out value="${journal.id}"/>"></input>
         <input type="text" name="mark1" value="<c:out value="${journal.mark1}" />"></input>
         <input type="text" name="mark2" value="<c:out value="${journal.mark2}" />"></input>
         
