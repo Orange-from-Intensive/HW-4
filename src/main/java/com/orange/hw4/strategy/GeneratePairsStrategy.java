@@ -10,6 +10,7 @@ import com.orange.hw4.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Slf4j
@@ -35,6 +36,13 @@ public class GeneratePairsStrategy implements UserActionStrategy {
             Map<Long, Map<Long, Integer>> userOpponentsMap = journalRepository.getAllUserOpponents();
 
             List<Opponents> opponents = generatePairsWithLeastMeetings(orangeTeam, pinkTeam, userOpponentsMap);
+
+            for(Opponents op: opponents){
+                LocalDate now = LocalDate.now();
+                User orange = op.getOrange();
+                User pink = op.getPink();
+                journalRepository.addPairs(orange, pink, now);
+            }
 
             request.setAttribute("opponents", opponents);
             request.getRequestDispatcher("/generatePairs.jsp").forward(request, resp);

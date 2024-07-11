@@ -27,7 +27,9 @@
     
 <p><a href="${pageContext.request.contextPath}/user?action=list">List users</a></p>
 <p><a href="${pageContext.request.contextPath}/user?action=addget">Add user</a></p>
-    
+<p><a href="${pageContext.request.contextPath}/user?action=journal">Journal</a></p>
+
+
 
 
 </body>

@@ -35,6 +35,7 @@
     <h1>Fight!</h1>
     <form action="${pageContext.request.contextPath}/"><p><button>go back to main page...</button></p></form>
 
+    <form action="${pageContext.request.contextPath}/user?action=journal"><p><button>journal</button></p></form>
     <div class="table">
         <table>
             <thead>
