@@ -131,4 +131,27 @@ public class JdbcJournalRepository implements JournalRepository {
         }
         return userMap;
     }
+
+    @Override
+    public Map<Long, Map<Long, Integer>> getAllUserOpponents() {
+        Map<Long, Map<Long, Integer>> userOpponentsMap = new HashMap<>();
+        String query = "SELECT user_id, opponent_id, meeting_count FROM user_opponents";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                long userId = rs.getLong("user_id");
+                long opponentId = rs.getLong("opponent_id");
+                int meetingCount = rs.getInt("meeting_count");
+
+                userOpponentsMap
+                        .computeIfAbsent(userId, k -> new HashMap<>())
+                        .put(opponentId, meetingCount);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return userOpponentsMap;
+    }
 }

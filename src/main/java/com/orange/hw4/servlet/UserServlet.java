@@ -1,5 +1,6 @@
 package com.orange.hw4.servlet;
 
+import com.orange.hw4.repository.JournalRepository;
 import com.orange.hw4.service.JournalService;
 import com.orange.hw4.service.UserService;
 import com.orange.hw4.strategy.*;
@@ -26,10 +27,11 @@ public class UserServlet extends HttpServlet {
         super.init(config);
         UserService userService = (UserService) config.getServletContext().getAttribute("userService");
         JournalService journalService = (JournalService) config.getServletContext().getAttribute("journalService");
+        JournalRepository journalRepository = (JournalRepository) config.getServletContext().getAttribute("journalRepository");
 
         strategyMap = new HashMap<>();
         strategyMap.put("list", new ListUsersStrategy(userService));
-        strategyMap.put("generatePairs", new GeneratePairsStrategy(userService));
+        strategyMap.put("generatePairs", new GeneratePairsStrategy(userService, journalRepository));
         strategyMap.put("edit", new EditUserStrategy(userService));
         strategyMap.put("addget", (req, resp) -> req.getRequestDispatcher("/useradd.jsp").forward(req, resp));
         strategyMap.put("journal", new JournalStrategy(userService, journalService));
