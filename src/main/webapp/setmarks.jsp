@@ -11,7 +11,6 @@
 <h1>Set Marks</h1>
 <form action="${pageContext.request.contextPath}/"><p><button>go back to main page...</button></p></form>
 <div>
-     <c:if test="${journal == null}">
 
     <form action="${pageContext.request.contextPath}/user?action=updatemarks" method="post"
         
@@ -20,7 +19,7 @@
         
         <input type="submit" value="set marks">
     </form>
-     </c:if>
+
 
 </div>
 </body>
