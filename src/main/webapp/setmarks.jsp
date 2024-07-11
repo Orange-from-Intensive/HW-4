@@ -14,8 +14,8 @@
     <form action="${pageContext.request.contextPath}/user?action=updatemarks" method="post">
         <input type="hidden" name="journal"></input>
         
-        <input type="text" name="mark1" value="${journal.mark1}"></input>
-        <input type="text" name="mark2" value="${journal.mark2}"></input>
+        <input type="text" name="mark1" value="<c:out value="${journal.mark1}" />"></input>
+        <input type="text" name="mark2" value="<c:out value="${journal.mark2}" />"></input>
         
         <input type="submit" value="set marks">
     </form>
