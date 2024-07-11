@@ -1,4 +1,4 @@
-package model;
+package com.orange.hw4.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

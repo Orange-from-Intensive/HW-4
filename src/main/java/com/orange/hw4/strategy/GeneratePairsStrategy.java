@@ -3,8 +3,8 @@ package com.orange.hw4.strategy;
 import com.orange.hw4.util.UserUtils;
 import com.orange.hw4.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import model.Opponents;
-import model.User;
+import com.orange.hw4.model.Opponents;
+import com.orange.hw4.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

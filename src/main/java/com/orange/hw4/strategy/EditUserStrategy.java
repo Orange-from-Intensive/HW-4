@@ -2,7 +2,7 @@ package com.orange.hw4.strategy;
 
 import com.orange.hw4.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import model.User;
+import com.orange.hw4.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

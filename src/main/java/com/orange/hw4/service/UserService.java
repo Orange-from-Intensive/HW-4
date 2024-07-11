@@ -1,6 +1,6 @@
 package com.orange.hw4.service;
 
-import model.User;
+import com.orange.hw4.model.User;
 
 import java.time.LocalDate;
 import java.util.List;

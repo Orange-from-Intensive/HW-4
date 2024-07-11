@@ -1,12 +1,13 @@
 package com.orange.hw4.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import model.User;
+import com.orange.hw4.model.User;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 @FunctionalInterface
@@ -53,7 +54,7 @@ public class JdbcUserRepository implements UserRepository {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record not added to db. Name[{}], Surname[{}], Date[{}]. SQL exception{}", name, surName, birthDate, e);
+            log.error("Record not added to db. "+ e.getMessage());
         }
     }
 
@@ -69,7 +70,7 @@ public class JdbcUserRepository implements UserRepository {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record was not updated. Id[{}].  SQL exception[{}]", id, e);
+            log.error("Record was not updated" + e.getMessage());
         }
     }
 
@@ -81,7 +82,7 @@ public class JdbcUserRepository implements UserRepository {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record not removed from db. Id[{}].  SQL exception[{}]", id, e);
+            log.error("Record was not removed" + e.getMessage());
         }
     }
 
@@ -96,13 +97,13 @@ public class JdbcUserRepository implements UserRepository {
                     String surname = resultSet.getString("surname");
                     LocalDate birthDate = resultSet.getDate("age").toLocalDate();
                     String team = resultSet.getString("team");
-                    Long id = resultSet.getLong("id");
+                    UUID id = resultSet.getObject("id", UUID.class);
                     User user = new User(id, name, surname, birthDate, team);
                     users.add(user);
                 }
             });
         } catch (SQLException e) {
-            log.error("Records not retrieved from db. SQL exception[{}]", e);
+            log.error("Records were not retrieved from db{}", e.getMessage());
         }
         return users;
     }
@@ -123,12 +124,12 @@ public class JdbcUserRepository implements UserRepository {
                 String surname = resultSet.getString("surname");
                 LocalDate birthDate = resultSet.getDate("age").toLocalDate();
                 String team = resultSet.getString("team");
-                Long userId = resultSet.getLong("id");
+                UUID userId = resultSet.getObject("id", UUID.class);
                 user.set(new User(userId, name, surname, birthDate, team));
             });
             return user.get();
         } catch (SQLException e) {
-            log.error("Record not retrieved from db. SQL exception[{}]", id, e);
+            log.error("Record was not retrieved from db" + e.getMessage());
         }
         return null;
     }
