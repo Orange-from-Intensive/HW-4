@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 public class JdbcJournalRepository implements JournalRepository {
@@ -19,6 +20,7 @@ public class JdbcJournalRepository implements JournalRepository {
     private static final String DELETE_PAIRS = "DELETE FROM marks WHERE id=?";
     private static final String GET_ALL_JOURNALS = "SELECT * FROM marks";
     private static final String GET_USER_OPPONENTS = "SELECT user_one_id, user_two_id,COUNT(*) AS count FROM marks GROUP BY user_one_id, user_two_id";
+    private static final String GET_JOURNAL_BY_ID = "SELECT * FROM marks WHERE id=?";
     private final Connection connection;
 
     public JdbcJournalRepository(Connection connection){
@@ -65,11 +67,11 @@ public class JdbcJournalRepository implements JournalRepository {
     }
 
     @Override
-    public void editPairs(Journal journal, Double mark1, Double mark2) {
+    public void editPairs(Long journal, Double mark1, Double mark2) {
         try(PreparedStatement statement = connection.prepareStatement(ADD_MARKS_TO_PAIRS)){
             statement.setDouble(1, mark1);
             statement.setDouble(2, mark2);
-            statement.setLong(3,journal.getId());
+            statement.setLong(3,journal);
 
             executeWithTransaction(Connection.TRANSACTION_SERIALIZABLE, conn -> {
                 statement.executeUpdate();
@@ -103,6 +105,36 @@ public class JdbcJournalRepository implements JournalRepository {
             log.error("Error retrieving Journal List", e);
         }
         return journals;
+    }
+
+    @Override
+    public Journal getJournalById(Long id) {
+        try(PreparedStatement statement = connection.prepareStatement(GET_JOURNAL_BY_ID)){
+            statement.setLong(1,id);
+
+            AtomicReference<Journal> journal = new AtomicReference<>(null);
+            executeWithTransaction(Connection.TRANSACTION_SERIALIZABLE, conn ->{
+                try(ResultSet resultSet = statement.executeQuery()){
+                    if(!resultSet.next()){
+                        log.error("Record not found, id="+id);
+                        throw new SQLException("Record not found. Id[" + id + "]");
+                    }
+
+                    LocalDate lessonDate = resultSet.getDate("lesson_date").toLocalDate();
+                    Long userOneId = resultSet.getLong("user_one_id");
+                    Long userTwoId = resultSet.getLong("user_two_id");
+                    Double userOneMark = resultSet.getDouble("user_one_mark");
+                    Double userTwoMark = resultSet.getDouble("user_two_mark");
+                    Long journalId = resultSet.getLong("id");
+                    journal.set(new Journal(journalId, lessonDate,userOneId,userOneMark,userTwoId,userTwoMark));
+                }
+            });
+
+            return journal.get();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
     @Override
