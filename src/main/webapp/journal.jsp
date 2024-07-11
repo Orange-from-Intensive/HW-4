@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${journalView}" var="pairs">
+            <c:forEach items="${journal}" var="pairs">
                 <tr>
                     <td><c:out value="${pairs.lessonDate}"/></td>
                     <td><c:out value="${pairs.user1.name} ${pairs.user1.surname}"/></td>
