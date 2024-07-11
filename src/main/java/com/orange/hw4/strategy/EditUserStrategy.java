@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @Slf4j
 public class EditUserStrategy implements UserActionStrategy {
@@ -22,7 +23,7 @@ public class EditUserStrategy implements UserActionStrategy {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String idString = req.getParameter("id");
         try {
-            Long id = Long.parseLong(idString);
+            UUID id = UUID.fromString(idString);
             User user = userService.getUserById(id);
             req.setAttribute("user", user);
             req.getRequestDispatcher("/useredit.jsp").forward(req, resp);
