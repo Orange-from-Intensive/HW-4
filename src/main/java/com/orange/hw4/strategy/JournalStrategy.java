@@ -39,10 +39,10 @@ public class JournalStrategy implements UserActionStrategy {
             for(Journal j: journalFeed){
                 Long id = j.getId();
                 LocalDate lessonDate = j.getLessonDate();
-                User user1 = userService.getUserById(j.getUser1_id());
-                User user2 = userService.getUserById(j.getUser2_id());
-                Double user1Mark = j.getUser1_mark();
-                Double user2Mark = j.getUser2_mark();
+                User user1 = userService.getUserById(j.getUserOneId());
+                User user2 = userService.getUserById(j.getUserTwoId());
+                Double user1Mark = j.getUserOneMark();
+                Double user2Mark = j.getUserTwoMark();
                 list.add(new JournalViewHelper(id,lessonDate,user1, user1Mark,user2,user2Mark));
             }
 
