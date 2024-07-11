@@ -23,6 +23,7 @@ public class RemoveUserStrategy implements UserActionStrategy {
         try {
             UUID id = UUID.fromString(idString);
             userService.deleteUser(id);
+            resp.sendRedirect(req.getContextPath() + "/user?action=list");
         } catch (Exception e) {
             log.warn("Error removing user.", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error removing user.");

@@ -27,7 +27,7 @@ public class AddUserStrategy implements UserActionStrategy {
         final String team = request.getParameter("team");
         try {
             userService.addUser(name, surname, dateOfBirth, team);
-            resp.sendRedirect(request.getContextPath() + "/index.jsp");
+            resp.sendRedirect(request.getContextPath());
         } catch (Exception e) {
             log.warn("Error adding user.", e);
             request.setAttribute("errorMessage", "Error adding user: " + e.getMessage());

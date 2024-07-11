@@ -66,7 +66,7 @@
                                         <a href="${pageContext.request.contextPath}/user?action=edit&id=${user.id}">
                                             <button class="action">Edit</button>
                                         </a>
-                                        <form action="${pageContext.request.contextPath}/user?action=list"
+                                        <form action="${pageContext.request.contextPath}/user?action=remove&id=${user.id}"
                                             method="post" style="display:inline;">
                                             <button class="action">Delete</button>
                                         </form>
