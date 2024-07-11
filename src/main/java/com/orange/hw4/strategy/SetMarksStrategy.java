@@ -27,8 +27,8 @@ public class SetMarksStrategy implements UserActionStrategy {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        Long idaaa = Long.valueOf(req.getParameter("id"));
         try{
-            Long idaaa = Long.valueOf(req.getParameter("id"));
         Journal j = journalService.getJournalById(idaaa);
 
 
@@ -43,6 +43,7 @@ public class SetMarksStrategy implements UserActionStrategy {
         req.getRequestDispatcher("/setmarks.jsp").forward(req,resp);
         }catch (Exception e){
             log.error(e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving journal." + e.getMessage());
         }
     }
 }

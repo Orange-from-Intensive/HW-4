@@ -28,6 +28,7 @@ public class UpdateMarksStrategy implements UserActionStrategy{
             resp.sendRedirect(req.getContextPath() + "/journal.jsp");
         }catch (Exception e){
             log.error(e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving journal." + e.getMessage());
         }
     }
 }
