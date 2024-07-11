@@ -57,10 +57,12 @@ public class JdbcJournalRepository implements JournalRepository {
 
     @Override
     public void removePairs(Long id) {
-        try(PreparedStatement statement = connection.prepareStatement(DELETE_PAIRS)){
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_PAIRS)) {
             statement.setLong(1, id);
-        }catch (SQLException e) {
-            log.error("Record was not add to DB", e);
+
+            executeWithTransaction(Connection.TRANSACTION_READ_COMMITTED, conn -> statement.executeUpdate());
+        } catch (SQLException e) {
+            log.error("Record was not removed from DB", e);
         }
     }
 
