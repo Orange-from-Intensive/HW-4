@@ -75,14 +75,14 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_USER)) {
-            statement.setLong(1, id);
+            statement.setObject(1, id);
             executeWithTransaction(Connection.TRANSACTION_READ_UNCOMMITTED, conn -> {
                 statement.executeUpdate();
             });
         } catch (SQLException e) {
-            log.error("Record was not removed" + e.getMessage());
+            log.error("Record was not removed{}", e.getMessage());
         }
     }
 
@@ -109,9 +109,9 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public User getUserbyId(Long id) {
+    public User getUserbyId(UUID id) {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID)) {
-            statement.setLong(1, id);
+            statement.setObject(1, id);
             AtomicReference<User> user = new AtomicReference<>(null);
             executeWithTransaction(Connection.TRANSACTION_SERIALIZABLE, conn -> {
                 ResultSet resultSet = statement.executeQuery();
@@ -129,7 +129,7 @@ public class JdbcUserRepository implements UserRepository {
             });
             return user.get();
         } catch (SQLException e) {
-            log.error("Record was not retrieved from db" + e.getMessage());
+            log.error("Record was not retrieved from db{}", e.getMessage());
         }
         return null;
     }

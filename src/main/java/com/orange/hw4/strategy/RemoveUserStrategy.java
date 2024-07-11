@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @Slf4j
 public class RemoveUserStrategy implements UserActionStrategy {
@@ -20,7 +21,7 @@ public class RemoveUserStrategy implements UserActionStrategy {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idString = req.getParameter("id");
         try {
-            Long id = Long.parseLong(idString);
+            UUID id = UUID.fromString(idString);
             userService.deleteUser(id);
         } catch (Exception e) {
             log.warn("Error removing user.", e);

@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -79,17 +80,17 @@ public class UserServiceImplTest {
 
     @Test
     void testDeleteUser() {
-        doNothing().when(userRepository).deleteUser(anyLong());
+        doNothing().when(userRepository).deleteUser(any());
 
-        userService.deleteUser(1L);
+        userService.deleteUser(new UUID(1,2));
 
-        verify(userRepository, times(1)).deleteUser(1L);
+        verify(userRepository, times(1)).deleteUser(new UUID(1,2));
     }
 
     @Test
     void testGetAllUsers() {
-        User user1 = new User(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
-        User user2 = new User(2L, "Jane", "Doe", LocalDate.of(1992, 8, 25), "ORANGE");
+        User user1 = new User(new UUID(1,2), "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
+        User user2 = new User(new UUID(3,4), "Jane", "Doe", LocalDate.of(1992, 8, 25), "ORANGE");
         List<User> users = Arrays.asList(user1, user2);
 
         when(userRepository.getAllUsers()).thenReturn(users);
@@ -102,14 +103,14 @@ public class UserServiceImplTest {
 
     @Test
     void testGetUserById() {
-        User user = new User(1L, "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
-        when(userRepository.getUserbyId(anyLong())).thenReturn(user);
+        User user = new User(new UUID(1,2), "John", "Doe", LocalDate.of(1990, 5, 15), "PINK");
+        when(userRepository.getUserbyId(any())).thenReturn(user);
 
-        User result = userService.getUserById(1L);
+        User result = userService.getUserById(new UUID(1,2));
 
         assertNotNull(result);
-        assertEquals(1L, result.getId());
+        assertEquals(new UUID(1,2), result.getId());
         assertEquals("John", result.getName());
-        verify(userRepository, times(1)).getUserbyId(1L);
+        verify(userRepository, times(1)).getUserbyId(new UUID(1,2));
     }
 }
