@@ -42,6 +42,8 @@ public class InitializationContextListener implements ServletContextListener {
 
             sce.getServletContext().setAttribute("journalService", journalService);
             sce.getServletContext().setAttribute("userService", userService);
+            sce.getServletContext().setAttribute("journalRepository", journalRepository);
+
         } catch (Exception e) {
             log.error("Initialization error.", e);
         }

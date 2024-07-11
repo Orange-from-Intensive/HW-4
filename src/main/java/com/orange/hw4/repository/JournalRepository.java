@@ -21,5 +21,6 @@ public interface JournalRepository {
      * @return  hashmap containing users and frequency of their matches
      */
     Map<Long, Map<Long,Integer>> getAllUserOpponents(User user);
+    Map<Long, Map<Long, Integer>> getAllUserOpponents();
 
 }
