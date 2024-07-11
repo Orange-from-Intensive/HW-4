@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 @FunctionalInterface
@@ -96,13 +97,13 @@ public class JdbcUserRepository implements UserRepository {
                     String surname = resultSet.getString("surname");
                     LocalDate birthDate = resultSet.getDate("age").toLocalDate();
                     String team = resultSet.getString("team");
-                    Long id = resultSet.getLong("id");
+                    UUID id = resultSet.getObject("id", UUID.class);
                     User user = new User(id, name, surname, birthDate, team);
                     users.add(user);
                 }
             });
         } catch (SQLException e) {
-            log.error("Records were not retrieved from db"+ e.getMessage());
+            log.error("Records were not retrieved from db{}", e.getMessage());
         }
         return users;
     }
@@ -123,7 +124,7 @@ public class JdbcUserRepository implements UserRepository {
                 String surname = resultSet.getString("surname");
                 LocalDate birthDate = resultSet.getDate("age").toLocalDate();
                 String team = resultSet.getString("team");
-                Long userId = resultSet.getLong("id");
+                UUID userId = resultSet.getObject("id", UUID.class);
                 user.set(new User(userId, name, surname, birthDate, team));
             });
             return user.get();

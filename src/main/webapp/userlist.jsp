@@ -152,7 +152,7 @@
 
         <div class="menu">
             <div class="link"><a href="${pageContext.request.contextPath}/">Go back to main page...</a></div>
-            <div class="link"><a href="${pageContext.request.contextPath}/user?action=add">Add user</a></div>
+            <div class="link"><a href="${pageContext.request.contextPath}/user?action=addget">Add user</a></div>
         </div>
     </main>
 </body>
