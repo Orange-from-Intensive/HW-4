@@ -27,9 +27,9 @@ public class SetMarksStrategy implements UserActionStrategy {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Long idaaa = Long.valueOf(req.getParameter("id"));
+        Long id = Long.valueOf(req.getParameter("id"));
         try{
-        Journal journal = journalService.getJournalById(idaaa);
+        Journal journal = journalService.getJournalById(id);
 
 
         Double mark1 = journal.getUser1_mark();
@@ -41,7 +41,7 @@ public class SetMarksStrategy implements UserActionStrategy {
 
 
 
-        JournalViewHelper view = new JournalViewHelper(journalId,journal.getLessonDate(), user1, mark1,user2,mark2);
+        JournalViewHelper view = new JournalViewHelper(id,journal.getLessonDate(), user1, mark1,user2,mark2);
         req.setAttribute("journal", view);
         req.getRequestDispatcher("/setmarks.jsp").forward(req,resp);
         }catch (Exception e){
