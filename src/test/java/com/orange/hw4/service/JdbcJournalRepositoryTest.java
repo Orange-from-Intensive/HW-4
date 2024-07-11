@@ -72,13 +72,13 @@ public class JdbcJournalRepositoryTest {
 
         List<Journal> journals = repository.getJournalFeed();
 
-//        assertEquals(1, journals.size());
-//        Journal journal = journals.get(0);
-//        assertEquals(LocalDate.of(2023, 1, 1), journal.getLessonDate());
-//        assertEquals(1L, journal.getUserOneId());
-//        assertEquals(2L, journal.getUserTwoId());
-//        assertEquals(2.0, journal.getUserOneMark());
-//        assertEquals(3.0, journal.getUserTwoMark());
+        assertEquals(1, journals.size());
+        Journal journal = journals.get(0);
+        assertEquals(LocalDate.of(2023, 1, 1), journal.getLessonDate());
+        assertEquals(1L, journal.getUserOneId());
+        assertEquals(2L, journal.getUserTwoId());
+        assertEquals(2.0, journal.getUserOneMark());
+        assertEquals(3.0, journal.getUserTwoMark());
     }
 
     @Test

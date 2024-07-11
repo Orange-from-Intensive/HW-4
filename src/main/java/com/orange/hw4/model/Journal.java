@@ -1,19 +1,45 @@
 package com.orange.hw4.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@AllArgsConstructor
 public class Journal {
     private Long id;
     private LocalDate lessonDate;
-    private Long user1_id;
-    private Double user1_mark;
-    private Long user2_id;
-    private Double user2_mark;
+    private Long userOneId;
+    private Double userOneMark;
+    private Long userTwoId;
+    private Double userTwoMark;
+
+    public Journal(Long id, LocalDate lessonDate, Long userOneId, Double userOneMark, Long userTwoId, Double userTwoMark) {
+        this.id = id;
+        this.lessonDate = lessonDate;
+        this.userOneId = userOneId;
+        this.userOneMark = userOneMark;
+        this.userTwoId = userTwoId;
+        this.userTwoMark = userTwoMark;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDate getLessonDate() {
+        return lessonDate;
+    }
+
+    public Long getUserOneId() {
+        return userOneId;
+    }
+
+    public Double getUserOneMark() {
+        return userOneMark;
+    }
+
+    public Long getUserTwoId() {
+        return userTwoId;
+    }
+
+    public Double getUserTwoMark() {
+        return userTwoMark;
+    }
 }
