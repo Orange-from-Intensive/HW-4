@@ -27,6 +27,11 @@
                     <td><c:out value="${pairs.mark1}"/></td>
                     <td><c:out value="${pairs.user2.name} ${pairs.user2.surname}"/></td>
                     <td><c:out value="${pairs.mark2}"/></td>
+                    <td><c:if test="${not empty pairs}">
+                        <a href="${pageContext.request.contextPath}/user?action=setmarks?id=${pairs.id}">
+                            <button>Edit</button>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
