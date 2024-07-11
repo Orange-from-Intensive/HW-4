@@ -135,9 +135,8 @@ public class JdbcJournalRepository implements JournalRepository {
     @Override
     public Map<Long, Map<Long, Integer>> getAllUserOpponents() {
         Map<Long, Map<Long, Integer>> userOpponentsMap = new HashMap<>();
-        String query = "SELECT user_id, opponent_id, meeting_count FROM user_opponents";
 
-        try (PreparedStatement stmt = connection.prepareStatement(query);
+        try (PreparedStatement stmt = connection.prepareStatement(GET_USER_OPPONENTS);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 long userId = rs.getLong("user_id");
@@ -154,4 +153,5 @@ public class JdbcJournalRepository implements JournalRepository {
 
         return userOpponentsMap;
     }
+
 }

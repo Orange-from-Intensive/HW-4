@@ -41,4 +41,8 @@ public class JournalServiceImpl implements JournalService {
     public Map<Long, Map<Long,Integer>> getAllUserOpponents(User user) {
         return journalRepository.getAllUserOpponents(user);
     }
+
+    public Map<Long, Map<Long, Integer>> getAllUserOpponents() {
+        return journalRepository.getAllUserOpponents();
+    }
 }
