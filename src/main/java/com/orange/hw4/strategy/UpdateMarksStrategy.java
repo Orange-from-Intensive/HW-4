@@ -21,8 +21,11 @@ public class UpdateMarksStrategy implements UserActionStrategy{
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Double mark1 = Double.valueOf(req.getParameter("mark1"));
+        log.error("1" + mark1);
         Double mark2 = Double.valueOf(req.getParameter("mark2"));
+        log.error("2" + mark2);
         Long id = Long.valueOf(req.getParameter("id"));
+        log.error("3" + id);
         try{
             journalService.editPairs(id, mark1, mark2);
             resp.sendRedirect(req.getContextPath() + "/journal.jsp");
