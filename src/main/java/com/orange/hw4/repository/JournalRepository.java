@@ -11,9 +11,10 @@ public interface JournalRepository {
 
     void addPairs(User user1, User user2, LocalDate date);
     void removePairs(Long id);
-    void editPairs(Journal journal, Double mark1, Double mark2);
+    void editPairs(Long journal, Double mark1, Double mark2);
 
     List<Journal> getJournalFeed();
+    Journal getJournalById(Long id);
 
     /**
      * returns all user opponent objects

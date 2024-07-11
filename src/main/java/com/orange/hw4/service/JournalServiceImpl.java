@@ -28,8 +28,13 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public void editPairs(Journal journal, Double mark1, Double mark2) {
+    public void editPairs(Long journal, Double mark1, Double mark2) {
         journalRepository.editPairs(journal, mark1, mark2);
+    }
+
+    @Override
+    public Journal getJournalById(Long id) {
+        return journalRepository.getJournalById(id);
     }
 
     @Override

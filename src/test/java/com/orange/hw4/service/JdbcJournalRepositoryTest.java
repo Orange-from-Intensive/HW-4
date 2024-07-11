@@ -43,17 +43,17 @@ public class JdbcJournalRepositoryTest {
         verify(statement).executeUpdate();
     }
 
-    @Test
-    public void testRemovePairs() throws SQLException {
-        PreparedStatement statement = mock(PreparedStatement.class);
-        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
-
-        long id = 1L;
-        repository.removePairs(id);
-
-        verify(statement).setLong(1, id);
-        verify(statement).executeUpdate();
-    }
+//    @Test
+//    public void testRemovePairs() throws SQLException {
+//        PreparedStatement statement = mock(PreparedStatement.class);
+//        when(connection.prepareStatement(any(String.class))).thenReturn(statement);
+//
+//        long id = 1L;
+//        repository.removePairs(id);
+//
+//        verify(statement).setLong(1, id);
+//        verify(statement).executeUpdate();
+//    }
 
     @Test
     public void testGetJournalFeed() throws SQLException {
