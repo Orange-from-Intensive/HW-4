@@ -39,6 +39,7 @@ public class UserServlet extends HttpServlet {
         strategyMap.put("update", new UpdateUserStrategy(userService));
         strategyMap.put("remove", new RemoveUserStrategy(userService));
         strategyMap.put("setMarks", new SetMarksStrategy(journalService, userService));
+        strategyMap.put("updatemarks", new UpdateMarksStrategy(journalService));
     }
 
     @Override

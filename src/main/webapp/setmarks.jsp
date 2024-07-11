@@ -11,7 +11,7 @@
 <h1>Set Marks</h1>
 <form action="${pageContext.request.contextPath}/"><p><button>go back to main page...</button></p></form>
 <div>
-    <form>
+    <form action="${pageContext.request.contextPath}/user?action=updatemarks" method="post">
         <input type="hidden" name="journal"></input>
         
         <input type="text" name="mark1" value="${journal.mark1}"></input>
